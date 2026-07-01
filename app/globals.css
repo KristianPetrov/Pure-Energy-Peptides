@@ -154,10 +154,7 @@ body {
 }
 
 .text-gradient-brand {
-  background: linear-gradient(100deg, var(--aqua-deep), var(--aqua) 35%, var(--flame) 65%, var(--flame-deep));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--aqua);
 }
 
 .shimmer-text {
