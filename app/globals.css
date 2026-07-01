@@ -1,26 +1,226 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --flame: #ff7a00;
+  --flame-deep: #e05f00;
+  --flame-soft: #fff3e8;
+  --aqua: #00c7c7;
+  --aqua-deep: #009d9d;
+  --aqua-soft: #e9fafa;
+  --ink: #131c2b;
+  --ink-deep: #0a101c;
+  --slate: #5c6678;
+  --faint: #8d95a6;
+  --silver: #e5e9f0;
+  --silver-bright: #f3f5f9;
+  --frost: #f8fafc;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-flame: var(--flame);
+  --color-flame-deep: var(--flame-deep);
+  --color-flame-soft: var(--flame-soft);
+  --color-aqua: var(--aqua);
+  --color-aqua-deep: var(--aqua-deep);
+  --color-aqua-soft: var(--aqua-soft);
+  --color-ink: var(--ink);
+  --color-ink-deep: var(--ink-deep);
+  --color-slate-ui: var(--slate);
+  --color-faint: var(--faint);
+  --color-silver: var(--silver);
+  --color-silver-bright: var(--silver-bright);
+  --color-frost: var(--frost);
+  --font-sans: var(--font-poppins);
   --font-mono: var(--font-geist-mono);
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.6s ease both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-late: float 8s ease-in-out 1.2s infinite;
+  --animate-shimmer: shimmer 3.5s linear infinite;
+  --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes iridesce {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Iridescent silver surface: silver base with faint orange/teal hue drift. */
+.iridescent {
+  background: linear-gradient(
+    115deg,
+    #f4f6fa 0%,
+    #eceff5 18%,
+    #f0f8f8 36%,
+    #f7f1ea 54%,
+    #eef1f7 72%,
+    #f5f7fb 100%
+  );
+  background-size: 300% 300%;
+  animation: iridesce 14s ease-in-out infinite;
+}
+
+/* Iridescent dark surface: ink base with faint orange/teal hue drift, for
+   the header and footer "frame" around the light content sections. */
+.iridescent-dark {
+  background: linear-gradient(
+    115deg,
+    #0e1524 0%,
+    #131c2b 18%,
+    #0f2020 36%,
+    #1c1712 54%,
+    #101828 72%,
+    #0e1524 100%
+  );
+  background-size: 300% 300%;
+  animation: iridesce 14s ease-in-out infinite;
+}
+
+.iridescent-border {
+  position: relative;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(
+        135deg,
+        #e3e7ee 0%,
+        rgba(0, 199, 199, 0.35) 30%,
+        #dfe4ec 55%,
+        rgba(255, 122, 0, 0.3) 80%,
+        #e3e7ee 100%
+      )
+      border-box;
+  border: 1px solid transparent;
+}
+
+.text-gradient-brand {
+  background: linear-gradient(100deg, var(--aqua-deep), var(--aqua) 35%, var(--flame) 65%, var(--flame-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    100deg,
+    var(--faint) 20%,
+    #b8c0cf 35%,
+    #ffffff 50%,
+    #b8c0cf 65%,
+    var(--faint) 80%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 4.5s linear infinite;
+}
+
+.card-lift {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 32px -12px rgba(19, 28, 43, 0.14),
+    0 4px 12px -6px rgba(0, 199, 199, 0.12);
+  border-color: rgba(0, 199, 199, 0.35);
+}
+
+/* Scroll reveal (driven by IntersectionObserver in components/reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .iridescent,
+  .shimmer-text {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

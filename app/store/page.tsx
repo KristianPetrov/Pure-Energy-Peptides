@@ -1,0 +1,73 @@
+import type { Metadata } from "next";
+import type { Product } from "@/db/schema";
+import { getActiveProducts } from "@/lib/data";
+import { ProductCard } from "@/components/product-card";
+import { Reveal } from "@/components/reveal";
+
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Store",
+  description:
+    "Browse reference-grade research peptides. For Research Use Only.",
+};
+
+export default async function StorePage() {
+  let products: Product[] = [];
+  let dbError = false;
+  try {
+    products = await getActiveProducts();
+  } catch {
+    dbError = true;
+  }
+
+  const categories = [...new Set(products.map((p) => p.category))];
+
+  return (
+    <div className="mx-auto max-w-6xl px-4 py-16">
+      <Reveal>
+        <div className="max-w-2xl">
+          <h1 className="text-4xl font-bold tracking-tight">
+            Research <span className="text-gradient-brand">catalog</span>
+          </h1>
+          <p className="mt-4 text-slate-ui">
+            Reference compounds verified by HPLC/MS and organized by research
+            pathway. All products are for laboratory research use only.
+          </p>
+        </div>
+      </Reveal>
+
+      {dbError && (
+        <div className="mt-12 rounded-2xl border border-silver bg-frost p-8 text-center text-sm text-slate-ui">
+          The catalog is temporarily unavailable. Please check back shortly.
+        </div>
+      )}
+
+      {!dbError && products.length === 0 && (
+        <div className="mt-12 rounded-2xl border border-silver bg-frost p-8 text-center text-sm text-slate-ui">
+          No products are currently available.
+        </div>
+      )}
+
+      {categories.map((category) => (
+        <section key={category} className="mt-16">
+          <Reveal>
+            <div className="flex items-center gap-4">
+              <h2 className="text-xl font-bold text-ink">{category}</h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-silver to-transparent" />
+            </div>
+          </Reveal>
+          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {products
+              .filter((product) => product.category === category)
+              .map((product, index) => (
+                <Reveal key={product.id} delay={(index % 3) * 80}>
+                  <ProductCard product={product} />
+                </Reveal>
+              ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
