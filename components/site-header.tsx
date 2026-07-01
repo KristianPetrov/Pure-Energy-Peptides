@@ -50,20 +50,21 @@ export async function SiteHeader() {
             <div className="hidden items-center gap-2 sm:flex">
               {user ? (
                 <>
-                  {user.role === "admin" && (
+                  {user.role === "admin" ? (
                     <Link
                       href="/admin"
                       className="rounded-full px-3 py-2 text-sm font-medium text-flame transition-colors hover:bg-flame/15"
                     >
                       Admin
                     </Link>
+                  ) : (
+                    <Link
+                      href="/account"
+                      className="rounded-full px-3 py-2 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-aqua"
+                    >
+                      Account
+                    </Link>
                   )}
-                  <Link
-                    href="/account"
-                    className="rounded-full px-3 py-2 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-aqua"
-                  >
-                    Account
-                  </Link>
                   <form action={logout}>
                     <button
                       type="submit"

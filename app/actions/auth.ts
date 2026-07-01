@@ -98,7 +98,7 @@ export async function authenticate(
   }
 
   const email = parsed.data.email.toLowerCase();
-  const redirectTo = (formData.get("redirectTo") as string) || "/account";
+  const requestedRedirect = (formData.get("redirectTo") as string) || "";
 
   // Pre-check verification so the UI can offer a resend link.
   const db = getDb();
@@ -120,6 +120,10 @@ export async function authenticate(
       };
     }
   }
+
+  // Admins land on the admin dashboard by default; customers land on their account.
+  const redirectTo =
+    requestedRedirect || (user?.role === "admin" ? "/admin" : "/account");
 
   try {
     await signIn("credentials", {

@@ -44,16 +44,15 @@ export function MobileMenu({
             ))}
             <div className="my-1 h-px bg-white/10" />
             {isSignedIn ? (
-              <>
-                {isAdmin && (
-                  <Link
-                    href="/admin"
-                    onClick={() => setOpen(false)}
-                    className="rounded-xl px-4 py-3 text-sm font-medium text-flame transition-colors hover:bg-flame/15"
-                  >
-                    Admin
-                  </Link>
-                )}
+              isAdmin ? (
+                <Link
+                  href="/admin"
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl px-4 py-3 text-sm font-medium text-flame transition-colors hover:bg-flame/15"
+                >
+                  Admin
+                </Link>
+              ) : (
                 <Link
                   href="/account"
                   onClick={() => setOpen(false)}
@@ -61,7 +60,7 @@ export function MobileMenu({
                 >
                   Account
                 </Link>
-              </>
+              )
             ) : (
               <Link
                 href="/login"

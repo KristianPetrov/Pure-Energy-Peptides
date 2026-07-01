@@ -23,7 +23,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
   return (
     <div className="flex flex-col gap-5">
       <form action={formAction} className="flex flex-col gap-4">
-        <input type="hidden" name="redirectTo" value={redirectTo ?? "/account"} />
+        <input type="hidden" name="redirectTo" value={redirectTo ?? ""} />
         <div>
           <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink">
             Email
