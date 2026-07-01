@@ -89,7 +89,7 @@ export default async function HomePage() {
           </Reveal>
           <Reveal delay={200}>
             <h1 className="max-w-3xl text-balance text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
-              <span className="text-gradient-brand">Powering recovery</span>{" "}
+              <span className="text-gradient-brand">Powering</span> <span className="text-flame">Recovery</span>{" "}
               with research peptides of verified precision
             </h1>
           </Reveal>
@@ -147,7 +147,7 @@ export default async function HomePage() {
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Where balance meets{" "}
-              <span className="text-gradient-brand">energy</span>
+              <span className="text-flame">energy</span>
             </h2>
             <p className="mt-4 text-slate-ui">
               Four principles guide everything we source, verify, and ship.
