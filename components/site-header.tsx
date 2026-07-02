@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { auth } from "@/auth";
 import { logout } from "@/app/actions/auth";
-import { RUO_NOTICE } from "@/lib/constants";
 import { LogoMark, LogoWordmark } from "./logo";
 import { CartButton } from "./cart-button";
 import { MobileMenu } from "./mobile-menu";
+import { StickyHeader } from "./sticky-header";
 
 const NAV_LINKS = [
   { href: "/store", label: "Store" },
@@ -18,12 +18,7 @@ export async function SiteHeader() {
   const user = session?.user;
 
   return (
-    <header className="sticky top-0 z-40">
-      <div className="iridescent-dark border-b border-white/10">
-        <p className="mx-auto max-w-6xl px-4 py-1.5 text-center text-[11px] font-medium tracking-wide text-white/55">
-          {RUO_NOTICE}
-        </p>
-      </div>
+    <StickyHeader>
       <div className="border-b border-white/10 bg-ink/95 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
           <Link
@@ -92,6 +87,6 @@ export async function SiteHeader() {
           </div>
         </div>
       </div>
-    </header>
+    </StickyHeader>
   );
 }
