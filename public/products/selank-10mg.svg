@@ -18,8 +18,8 @@
       <stop offset="100%" stop-color="#e05f00"/>
     </linearGradient>
     <linearGradient id="pill" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#00FFF1"/>
-      <stop offset="100%" stop-color="#009d94"/>
+      <stop offset="0%" stop-color="#00c7c7"/>
+      <stop offset="100%" stop-color="#009d9d"/>
     </linearGradient>
     <linearGradient id="liquid" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#5bd6d6" stop-opacity="0.26"/>

@@ -30,7 +30,7 @@ type Mote = {
   size: number;
 };
 
-const AQUA = { r: 0, g: 255, b: 241 };
+const AQUA = { r: 0, g: 199, b: 199 };
 const FLAME = { r: 255, g: 122, b: 0 };
 
 /**

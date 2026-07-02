@@ -51,7 +51,7 @@ function layout(title: string, body: string) {
         <tr>
           <td style="padding:28px 32px;border-bottom:1px solid #eef1f6;background:linear-gradient(135deg,#ffffff 0%,#f6f9fc 100%);">
             <div style="font-size:20px;font-weight:700;letter-spacing:0.04em;">
-              <span style="color:#009d94;">PURE</span>
+              <span style="color:#009d9d;">PURE</span>
               <span style="color:#ff7a00;">ENERGY</span>
               <span style="color:#7c8595;">PEPTIDES</span>
             </div>
@@ -115,7 +115,7 @@ export async function sendOrderConfirmation(order: OrderWithItems) {
     <p style="font-size:14px;line-height:1.7;color:#5f6a7c;">Thank you for your order <strong style="color:#1c2431;">${order.reference}</strong>. It is currently awaiting payment. Please send your payment using one of the options below and include your order reference in the payment note.</p>
     <div style="margin:16px 0;padding:16px 20px;background:#f2fbfb;border:1px solid #c9eeee;border-radius:12px;">
       <p style="margin:0 0 8px;font-size:14px;color:#1c2431;"><strong>Zelle:</strong> ${ZELLE_RECIPIENT}</p>
-      <p style="margin:0;font-size:14px;color:#1c2431;"><strong>Venmo:</strong> @${VENMO_HANDLE.replace(/^@/, "")} — <a href="${venmoPaymentLink(order.totalCents, order.reference)}" style="color:#009d94;">pay ${formatMoney(order.totalCents)} on Venmo</a></p>
+      <p style="margin:0;font-size:14px;color:#1c2431;"><strong>Venmo:</strong> @${VENMO_HANDLE.replace(/^@/, "")} — <a href="${venmoPaymentLink(order.totalCents, order.reference)}" style="color:#009d9d;">pay ${formatMoney(order.totalCents)} on Venmo</a></p>
       <p style="margin:8px 0 0;font-size:12px;color:#8b94a5;">Include <strong>${order.reference}</strong> in the payment note.</p>
     </div>
     ${itemsTable(order.items)}

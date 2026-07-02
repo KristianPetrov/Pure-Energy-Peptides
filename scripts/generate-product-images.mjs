@@ -10,9 +10,9 @@ mkdirSync(OUT_DIR, { recursive: true });
 
 // Liquid tint per category (label itself stays on-brand for all products).
 const CATEGORY_TINTS = {
-  "Repair & Recovery": { a: "#00FFF1", b: "#009d94" },
+  "Repair & Recovery": { a: "#00c7c7", b: "#009d9d" },
   "Growth & Metabolic": { a: "#ff9a3d", b: "#ff7a00" },
-  "Longevity & Mitochondrial": { a: "#00FFF1", b: "#ff7a00" },
+  "Longevity & Mitochondrial": { a: "#00c7c7", b: "#ff7a00" },
   "Cognitive & Nootropic": { a: "#5bd6d6", b: "#008a8a" },
   "Specialty Research": { a: "#b9c2d0", b: "#8d95a6" },
 };
@@ -75,8 +75,8 @@ function vialSvg(name, strength, tint) {
       <stop offset="100%" stop-color="#e05f00"/>
     </linearGradient>
     <linearGradient id="pill" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#00FFF1"/>
-      <stop offset="100%" stop-color="#009d94"/>
+      <stop offset="0%" stop-color="#00c7c7"/>
+      <stop offset="100%" stop-color="#009d9d"/>
     </linearGradient>
     <linearGradient id="liquid" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${tint.a}" stop-opacity="0.26"/>

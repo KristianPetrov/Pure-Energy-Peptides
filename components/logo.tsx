@@ -17,10 +17,10 @@ export function LogoMark({ size = 34 }: { size?: number }) {
 export function LogoWordmark() {
   return (
     <span className="flex items-baseline gap-1.5 font-bold tracking-wide">
-      <span className="text-aqua">PURE</span>
-      <span className="text-flame">ENERGY</span>
-      <span className="text-faint text-[0.72em] font-semibold tracking-[0.28em]">
-        PEPTIDES
+      <span className="text-aqua">pure</span>
+      <span className="text-flame">energy</span>
+      <span className="font-script text-faint text-[1.25em] font-normal tracking-normal">
+        Peptides
       </span>
     </span>
   );
