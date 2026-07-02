@@ -217,7 +217,7 @@ export function CheckoutForm() {
                     value={option.id}
                     checked={shippingMethod === option.id}
                     onChange={() => setShippingMethod(option.id)}
-                    className="accent-[#00c7c7]"
+                    className="accent-aqua"
                   />
                   <span className="text-sm font-medium text-ink">
                     {option.label}

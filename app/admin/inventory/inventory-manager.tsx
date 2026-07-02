@@ -111,7 +111,7 @@ function InventoryRow({ product }: { product: ProductRow }) {
           type="checkbox"
           checked={active}
           onChange={(event) => setActive(event.target.checked)}
-          className="accent-[#00c7c7]"
+          className="accent-aqua"
         />
         Active
       </label>

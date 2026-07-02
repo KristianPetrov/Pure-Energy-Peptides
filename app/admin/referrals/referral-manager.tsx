@@ -156,7 +156,7 @@ function PartnerCard({ partner }: { partner: PartnerRow }) {
                 await toggleReferralPartner(partner.id, next);
               });
             }}
-            className="accent-[#00c7c7]"
+            className="accent-aqua"
           />
           Active
         </label>
@@ -214,7 +214,7 @@ function CodeRowView({ code }: { code: CodeRow }) {
               await toggleReferralCode(code.id, next);
             });
           }}
-          className="accent-[#00c7c7]"
+          className="accent-aqua"
         />
         Active
       </label>

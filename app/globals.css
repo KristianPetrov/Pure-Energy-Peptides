@@ -4,9 +4,9 @@
   --flame: #ff7a00;
   --flame-deep: #e05f00;
   --flame-soft: #fff3e8;
-  --aqua: #00c7c7;
-  --aqua-deep: #009d9d;
-  --aqua-soft: #e9fafa;
+  --aqua: #00FFF1;
+  --aqua-deep: #009d94;
+  --aqua-soft: #e6fffe;
   --ink: #131c2b;
   --ink-deep: #0a101c;
   --slate: #5c6678;
@@ -144,7 +144,7 @@ body {
     linear-gradient(
         135deg,
         #e3e7ee 0%,
-        rgba(0, 199, 199, 0.35) 30%,
+        rgba(0, 255, 241, 0.35) 30%,
         #dfe4ec 55%,
         rgba(255, 122, 0, 0.3) 80%,
         #e3e7ee 100%
@@ -184,8 +184,8 @@ body {
   transform: translateY(-4px);
   box-shadow:
     0 12px 32px -12px rgba(19, 28, 43, 0.14),
-    0 4px 12px -6px rgba(0, 199, 199, 0.12);
-  border-color: rgba(0, 199, 199, 0.35);
+    0 4px 12px -6px rgba(0, 255, 241, 0.12);
+  border-color: rgba(0, 255, 241, 0.35);
 }
 
 /* Scroll reveal (driven by IntersectionObserver in components/reveal.tsx) */
