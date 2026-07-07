@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { cacheLife } from "next/cache";
 import { BRAND_NAME, RUO_NOTICE } from "@/lib/constants";
 import { LogoMark, LogoWordmark } from "./logo";
+
+async function CopyrightYear() {
+  "use cache";
+  cacheLife("days");
+  return new Date().getFullYear();
+}
 
 export function SiteFooter() {
   return (
@@ -81,13 +88,24 @@ export function SiteFooter() {
         <div className="border-t border-white/10">
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-white/40 sm:flex-row">
             <p>
-              © {new Date().getFullYear()} {BRAND_NAME}. All rights reserved.
+              © <CopyrightYear /> {BRAND_NAME}. All rights reserved.
             </p>
             <p>
               By ordering you acknowledge you are a qualified researcher
               purchasing for laboratory research use only.
             </p>
           </div>
+          <p className="pb-4 text-center text-[11px] text-white/25">
+            Website designed by{" "}
+            <a
+              href="https://setfreedigitaldisciples.com"
+              target="_blank"
+              rel="noopener"
+              className="transition-colors hover:text-white/50"
+            >
+              Set Free Digital Disciples
+            </a>
+          </p>
         </div>
       </div>
     </footer>

@@ -1,4 +1,5 @@
 import "server-only";
+import { cacheLife, cacheTag } from "next/cache";
 import { and, asc, desc, eq, inArray, or, sql } from "drizzle-orm";
 import { getDb } from "@/db";
 import {
@@ -14,6 +15,9 @@ import {
 export type OrderWithItems = Order & { items: OrderItem[] };
 
 export async function getActiveProducts() {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("products");
   const db = getDb();
   return db
     .select()
@@ -23,6 +27,9 @@ export async function getActiveProducts() {
 }
 
 export async function getFeaturedProducts(limit = 6) {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("products");
   const db = getDb();
   return db
     .select()
@@ -33,6 +40,9 @@ export async function getFeaturedProducts(limit = 6) {
 }
 
 export async function getProductBySlug(slug: string) {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("products");
   const db = getDb();
   const [product] = await db
     .select()
@@ -40,6 +50,18 @@ export async function getProductBySlug(slug: string) {
     .where(eq(products.slug, slug))
     .limit(1);
   return product ?? null;
+}
+
+export async function getActiveProductSlugs() {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("products");
+  const db = getDb();
+  return db
+    .select({ slug: products.slug, createdAt: products.createdAt })
+    .from(products)
+    .where(eq(products.active, true))
+    .orderBy(asc(products.slug));
 }
 
 export async function getAllProducts() {

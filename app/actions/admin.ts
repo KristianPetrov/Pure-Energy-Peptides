@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import { auth } from "@/auth";
@@ -115,7 +115,7 @@ export async function cancelOrder(orderId: string): Promise<ActionResult> {
   await sendOrderCancelled({ ...order, status: "cancelled" });
 
   revalidateAdmin();
-  revalidatePath("/store");
+  updateTag("products");
   return { ok: true };
 }
 
@@ -152,8 +152,7 @@ export async function updateProductFull(input: {
     .where(eq(products.id, parsed.data.productId));
 
   revalidatePath("/admin/inventory");
-  revalidatePath("/store");
-  revalidatePath("/");
+  updateTag("products");
   return { ok: true };
 }
 
@@ -174,6 +173,6 @@ export async function updateInventory(
     .where(eq(products.id, parsed.data.productId));
 
   revalidatePath("/admin/inventory");
-  revalidatePath("/store");
+  updateTag("products");
   return { ok: true };
 }

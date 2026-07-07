@@ -3,7 +3,6 @@ import { getAllOrdersWithItems } from "@/lib/data";
 import { formatMoney } from "@/lib/format";
 import { StatCard } from "@/components/stat-card";
 
-export const dynamic = "force-dynamic";
 
 const RANGES = [7, 30, 90] as const;
 

@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "Science & Quality",
   description:
     "Our quality standards: HPLC/MS verification, lyophilization, and lot traceability.",
+  alternates: { canonical: "/science" },
 };
 
 const STANDARDS = [

@@ -8,10 +8,10 @@ import { formatDate, formatMoney } from "@/lib/format";
 import { OrderStatusBadge } from "@/components/order-status-badge";
 import { Reveal } from "@/components/reveal";
 
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Your Account",
+  robots: { index: false },
 };
 
 export default async function AccountPage() {

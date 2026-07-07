@@ -1,5 +1,6 @@
 "use server";
 
+import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq, inArray, sql } from "drizzle-orm";
 import { z } from "zod";
@@ -217,6 +218,7 @@ export async function placeOrder(payload: unknown): Promise<PlaceOrderResult> {
       .set({ inventory: sql`${products.inventory} - ${item.quantity}` })
       .where(eq(products.slug, item.slug));
   }
+  updateTag("products");
 
   const orderWithItems = { ...order, items: insertedItems };
   await sendOrderConfirmation(orderWithItems);

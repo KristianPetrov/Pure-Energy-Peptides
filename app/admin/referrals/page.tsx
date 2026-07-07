@@ -3,7 +3,6 @@ import { formatMoney } from "@/lib/format";
 import { StatCard } from "@/components/stat-card";
 import { ReferralManager } from "./referral-manager";
 
-export const dynamic = "force-dynamic";
 
 export default async function AdminReferralsPage() {
   const partners = await getReferralPartnersWithCodes();

@@ -23,10 +23,10 @@ import { trackingUrl } from "@/lib/carriers";
 import { OrderStatusBadge } from "@/components/order-status-badge";
 import { Reveal } from "@/components/reveal";
 
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Order details",
+  robots: { index: false },
 };
 
 export default async function OrderPage({

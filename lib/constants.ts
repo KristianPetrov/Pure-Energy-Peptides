@@ -16,9 +16,14 @@ export function getShippingOption(id: string) {
   return SHIPPING_OPTIONS.find((option) => option.id === id) ?? null;
 }
 
+export const SITE_DOMAIN = "pureenergypeptides.com";
+
 export function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  return process.env.NEXT_PUBLIC_SITE_URL ?? `https://${SITE_DOMAIN}`;
 }
+
+export const SITE_TAGLINE = "Reference-Grade Research Peptides";
+export const SITE_DESCRIPTION = `${BRAND_NAME} supplies reference-grade research peptides with 99% verified purity — HPLC and third-party tested, lot-traceable, and shipped with care to qualified laboratories. For Research Use Only.`;
 
 export const ZELLE_RECIPIENT =
   process.env.NEXT_PUBLIC_ZELLE_RECIPIENT ?? "payments@example.com";

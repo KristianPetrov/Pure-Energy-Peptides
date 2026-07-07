@@ -4,12 +4,18 @@ import { getActiveProducts } from "@/lib/data";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
 
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Store",
+  title: "Research Peptide Catalog",
   description:
-    "Browse reference-grade research peptides. For Research Use Only.",
+    "Browse reference-grade research peptides verified by HPLC/MS — repair, longevity, cognitive, and metabolic research compounds. For Research Use Only.",
+  alternates: { canonical: "/store" },
+  openGraph: {
+    title: "Research Peptide Catalog",
+    description:
+      "Browse reference-grade research peptides verified by HPLC/MS. For Research Use Only.",
+    url: "/store",
+  },
 };
 
 export default async function StorePage() {

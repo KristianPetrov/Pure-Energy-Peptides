@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import heroLogo from "@/public/brand/pep-logo-wide-transparent-simple-cropped.png";
@@ -16,7 +17,10 @@ import { BRAND_NAME } from "@/lib/constants";
 import { EnergyFlow } from "@/components/energy-flow";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
-export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const METRICS = [
   { value: "99%", label: "Purity — HPLC tested" },

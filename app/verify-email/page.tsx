@@ -4,10 +4,10 @@ import { CheckCircle2, XCircle } from "lucide-react";
 import { verifyEmailToken } from "@/app/actions/auth";
 import { AuthCard } from "@/components/auth-card";
 
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Verify email",
+  robots: { index: false },
 };
 
 export default async function VerifyEmailPage({

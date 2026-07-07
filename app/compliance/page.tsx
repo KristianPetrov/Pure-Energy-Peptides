@@ -4,6 +4,8 @@ import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
   title: "Research Use Only Policy",
+  description: `${BRAND_NAME} compliance policy: all products are strictly for in-vitro laboratory research and development. Not for human or veterinary use.`,
+  alternates: { canonical: "/compliance" },
 };
 
 export default function CompliancePage() {

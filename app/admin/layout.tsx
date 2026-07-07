@@ -1,20 +1,24 @@
+import { Suspense } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
+import { PageLoading } from "@/components/page-loading";
 import { AdminTabs } from "./admin-tabs";
 
-export default async function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const metadata: Metadata = {
+  title: "Admin",
+  robots: { index: false, follow: false },
+};
+
+async function AdminGuard({ children }: { children: React.ReactNode }) {
   const session = await auth();
   if (session?.user?.role !== "admin") {
     redirect("/login?redirectTo=/admin");
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
+    <>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">
@@ -33,6 +37,20 @@ export default async function AdminLayout({
       </div>
       <AdminTabs />
       <div className="mt-8">{children}</div>
+    </>
+  );
+}
+
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="mx-auto max-w-6xl px-4 py-10">
+      <Suspense fallback={<PageLoading />}>
+        <AdminGuard>{children}</AdminGuard>
+      </Suspense>
     </div>
   );
 }

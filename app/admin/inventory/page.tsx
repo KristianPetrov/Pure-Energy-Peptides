@@ -2,7 +2,6 @@ import { getAllProducts } from "@/lib/data";
 import { StatCard } from "@/components/stat-card";
 import { InventoryManager } from "./inventory-manager";
 
-export const dynamic = "force-dynamic";
 
 export default async function AdminInventoryPage() {
   const products = await getAllProducts();

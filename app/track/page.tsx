@@ -4,6 +4,9 @@ import { TrackForm } from "./track-form";
 
 export const metadata: Metadata = {
   title: "Track Order",
+  description:
+    "Track the status of your research peptide order using your order reference and email address.",
+  alternates: { canonical: "/track" },
 };
 
 export default async function TrackPage({

@@ -4,6 +4,8 @@ import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
+  description: `How ${BRAND_NAME} collects, uses, and protects your information.`,
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

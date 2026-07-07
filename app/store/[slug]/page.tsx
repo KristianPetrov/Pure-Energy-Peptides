@@ -5,11 +5,10 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, FlaskConical, ShieldAlert } from "lucide-react";
 import { getProductBySlug } from "@/lib/data";
 import { formatMoney } from "@/lib/format";
-import { RUO_NOTICE } from "@/lib/constants";
+import { BRAND_NAME, RUO_NOTICE, getSiteUrl } from "@/lib/constants";
 import { AddToCart } from "@/components/add-to-cart";
+import { JsonLd } from "@/components/json-ld";
 import { Reveal } from "@/components/reveal";
-
-export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -20,9 +19,16 @@ export async function generateMetadata({
   try {
     const product = await getProductBySlug(slug);
     if (!product) return { title: "Product not found" };
+    const description = `${product.shortDescription}. For Research Use Only.`;
     return {
       title: product.name,
-      description: `${product.shortDescription}. For Research Use Only.`,
+      description,
+      alternates: { canonical: `/store/${product.slug}` },
+      openGraph: {
+        title: product.name,
+        description,
+        url: `/store/${product.slug}`,
+      },
     };
   } catch {
     return { title: "Store" };
@@ -38,8 +44,62 @@ export default async function ProductPage({
   const product = await getProductBySlug(slug).catch(() => null);
   if (!product || !product.active) notFound();
 
+  const siteUrl = getSiteUrl();
+  const productUrl = `${siteUrl}/store/${product.slug}`;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Product",
+        "@id": `${productUrl}#product`,
+        name: product.name,
+        description: product.shortDescription,
+        image: `${siteUrl}${product.image}`,
+        url: productUrl,
+        sku: product.slug,
+        category: product.category,
+        brand: { "@id": `${siteUrl}/#organization` },
+        offers: {
+          "@type": "Offer",
+          url: productUrl,
+          priceCurrency: "USD",
+          price: (product.priceCents / 100).toFixed(2),
+          availability:
+            product.inventory > 0
+              ? "https://schema.org/InStock"
+              : "https://schema.org/OutOfStock",
+          seller: { "@id": `${siteUrl}/#organization` },
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: BRAND_NAME,
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Store",
+            item: `${siteUrl}/store`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: product.name,
+            item: productUrl,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-14">
+      <JsonLd data={structuredData} />
       <Reveal>
         <Link
           href="/store"

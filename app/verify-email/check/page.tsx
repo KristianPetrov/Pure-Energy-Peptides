@@ -5,6 +5,7 @@ import { ResendForm } from "./resend-form";
 
 export const metadata: Metadata = {
   title: "Check your email",
+  robots: { index: false },
 };
 
 export default async function VerifyEmailCheckPage({

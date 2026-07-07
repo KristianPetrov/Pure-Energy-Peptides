@@ -4,6 +4,8 @@ import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
   title: "Terms of Sale",
+  description: `Terms of sale for ${BRAND_NAME}: ordering, payment, shipping, and Research Use Only requirements.`,
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

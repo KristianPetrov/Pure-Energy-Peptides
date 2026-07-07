@@ -4,6 +4,7 @@ import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = {
   title: "Sign in",
+  robots: { index: false },
 };
 
 export default async function LoginPage({

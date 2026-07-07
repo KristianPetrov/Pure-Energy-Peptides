@@ -5,6 +5,7 @@ import { ResetForm } from "./reset-form";
 
 export const metadata: Metadata = {
   title: "Reset password",
+  robots: { index: false },
 };
 
 export default async function ResetPasswordPage({

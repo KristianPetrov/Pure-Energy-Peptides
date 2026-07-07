@@ -4,6 +4,7 @@ import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
   title: "Checkout",
+  robots: { index: false },
 };
 
 export default function CheckoutPage() {

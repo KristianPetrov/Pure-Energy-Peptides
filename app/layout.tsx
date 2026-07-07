@@ -1,10 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Comfortaa, Cookie, Geist_Mono } from "next/font/google";
 import { CartProvider } from "@/components/cart-provider";
 import { CartDrawer } from "@/components/cart-drawer";
+import { JsonLd } from "@/components/json-ld";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { BRAND_NAME, RUO_NOTICE, getSiteUrl } from "@/lib/constants";
+import {
+  BRAND_NAME,
+  SITE_DESCRIPTION,
+  SITE_TAGLINE,
+  getSiteUrl,
+} from "@/lib/constants";
 import "./globals.css";
 
 const comfortaa = Comfortaa({
@@ -23,13 +29,83 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL(getSiteUrl()),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: `${BRAND_NAME} — Research Peptides`,
+    default: `${BRAND_NAME} — ${SITE_TAGLINE}`,
     template: `%s — ${BRAND_NAME}`,
   },
-  description: `${BRAND_NAME}: reference-grade research peptides with verified purity. ${RUO_NOTICE}`,
+  description: SITE_DESCRIPTION,
+  applicationName: BRAND_NAME,
+  keywords: [
+    "research peptides",
+    "reference-grade peptides",
+    "HPLC tested peptides",
+    "third-party tested peptides",
+    "lyophilized peptides",
+    "peptides for laboratory research",
+    BRAND_NAME,
+  ],
+  authors: [{ name: BRAND_NAME, url: siteUrl }],
+  creator: BRAND_NAME,
+  publisher: BRAND_NAME,
+  category: "science",
+  formatDetection: { telephone: false, address: false, email: false },
+  openGraph: {
+    type: "website",
+    siteName: BRAND_NAME,
+    locale: "en_US",
+    url: "/",
+    title: `${BRAND_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${BRAND_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#131c2b",
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/brand/pep-mark.png`,
+      },
+      slogan: "Balance · Energy · Vitality",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      name: BRAND_NAME,
+      url: siteUrl,
+      description: SITE_DESCRIPTION,
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -43,6 +119,7 @@ export default function RootLayout({
       className={`${comfortaa.variable} ${cookie.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-ink">
+        <JsonLd data={structuredData} />
         <CartProvider>
           <SiteHeader />
           <main className="flex-1">{children}</main>
