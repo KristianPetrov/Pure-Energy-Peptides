@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import heroLogo from "@/public/brand/pep-logo-wide-transparent-simple-cropped.png";
+import heroLogo from "@/public/brand/pe-clear.png";
 import {
   ArrowRight,
   Atom,
@@ -79,8 +79,8 @@ export default async function HomePage() {
                 src={heroLogo}
                 alt={`${BRAND_NAME} logo`}
                 priority
-                sizes="(max-width: 640px) 440px, 720px"
-                className="w-104 max-w-full sm:w-180"
+                sizes="(max-width: 640px) 384px, 640px"
+                className="w-96 max-w-full sm:w-160"
                 style={{ height: "auto" }}
               />
             </div>

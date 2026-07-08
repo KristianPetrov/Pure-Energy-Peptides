@@ -9,10 +9,7 @@ export const contentType = "image/png";
 
 export default function Image() {
   const logo = readFileSync(
-    join(
-      process.cwd(),
-      "public/brand/pep-logo-wide-transparent-simple-cropped.png"
-    )
+    join(process.cwd(), "public/brand/pe-clear.png")
   );
   const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
 
@@ -31,7 +28,7 @@ export default function Image() {
             "radial-gradient(circle at 18% 12%, rgba(0,199,199,0.28), transparent 48%), radial-gradient(circle at 84% 88%, rgba(255,122,0,0.26), transparent 48%)",
         }}
       >
-        <img src={logoSrc} width={860} height={302} alt="" />
+        <img src={logoSrc} width={640} height={381} alt="" />
         <div
           style={{
             marginTop: 28,
