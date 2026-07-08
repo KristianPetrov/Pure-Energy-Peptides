@@ -82,34 +82,34 @@ export default async function OrderPage({
           <div className="mt-8 rounded-2xl border-2 border-flame/30 bg-flame-soft p-6 sm:p-8">
             <div className="flex items-center gap-2.5">
               <Wallet className="h-5 w-5 text-flame" />
-              <h2 className="text-lg font-semibold text-ink">
+              <h2 className="text-lg font-semibold text-foreground">
                 Complete your payment
               </h2>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-slate-ui">
               Send{" "}
-              <strong className="text-ink">
+              <strong className="text-foreground">
                 {formatMoney(order.totalCents)}
               </strong>{" "}
               using either option below, and include your order reference{" "}
-              <strong className="font-mono text-ink">{order.reference}</strong>{" "}
+              <strong className="font-mono text-foreground">{order.reference}</strong>{" "}
               in the payment note. Your order ships after payment is verified.
             </p>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-xl border border-silver bg-white p-5">
+              <div className="rounded-xl border border-silver bg-card p-5">
                 <p className="text-xs font-bold uppercase tracking-wider text-faint">
                   Zelle
                 </p>
-                <p className="mt-2 flex items-center gap-2 break-all font-mono text-sm font-semibold text-ink">
+                <p className="mt-2 flex items-center gap-2 break-all font-mono text-sm font-semibold text-foreground">
                   {ZELLE_RECIPIENT}
                   <Copy className="h-3.5 w-3.5 shrink-0 text-faint" />
                 </p>
               </div>
-              <div className="rounded-xl border border-silver bg-white p-5">
+              <div className="rounded-xl border border-silver bg-card p-5">
                 <p className="text-xs font-bold uppercase tracking-wider text-faint">
                   Venmo
                 </p>
-                <p className="mt-2 font-mono text-sm font-semibold text-ink">
+                <p className="mt-2 font-mono text-sm font-semibold text-foreground">
                   @{VENMO_HANDLE.replace(/^@/, "")}
                 </p>
                 <a
@@ -132,14 +132,14 @@ export default async function OrderPage({
           <div className="mt-8 rounded-2xl border-2 border-aqua/30 bg-aqua-soft p-6 sm:p-8">
             <div className="flex items-center gap-2.5">
               <Truck className="h-5 w-5 text-aqua-deep" />
-              <h2 className="text-lg font-semibold text-ink">
+              <h2 className="text-lg font-semibold text-foreground">
                 Your order is on the way
               </h2>
             </div>
             <p className="mt-2 text-sm text-slate-ui">
-              Shipped via <strong className="text-ink">{order.carrier}</strong>{" "}
+              Shipped via <strong className="text-foreground">{order.carrier}</strong>{" "}
               — tracking number{" "}
-              <strong className="font-mono text-ink">
+              <strong className="font-mono text-foreground">
                 {order.trackingNumber}
               </strong>
             </p>
@@ -183,8 +183,8 @@ export default async function OrderPage({
 
       <Reveal delay={180}>
         <div className="mt-10 grid gap-8 md:grid-cols-[1fr_300px]">
-          <div className="rounded-2xl border border-silver bg-white p-6">
-            <h2 className="font-semibold text-ink">Items</h2>
+          <div className="rounded-2xl border border-silver bg-card p-6">
+            <h2 className="font-semibold text-foreground">Items</h2>
             <ul className="mt-4 divide-y divide-silver">
               {order.items.map((item) => (
                 <li key={item.id} className="flex items-center gap-4 py-4">
@@ -198,12 +198,12 @@ export default async function OrderPage({
                     />
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-ink">{item.name}</p>
+                    <p className="text-sm font-medium text-foreground">{item.name}</p>
                     <p className="text-xs text-faint">
                       {formatMoney(item.unitPriceCents)} × {item.quantity}
                     </p>
                   </div>
-                  <p className="text-sm font-semibold text-ink">
+                  <p className="text-sm font-semibold text-foreground">
                     {formatMoney(item.unitPriceCents * item.quantity)}
                   </p>
                 </li>
@@ -226,7 +226,7 @@ export default async function OrderPage({
                 <span>Shipping</span>
                 <span>{formatMoney(order.shippingCents)}</span>
               </div>
-              <div className="flex justify-between border-t border-silver pt-3 text-base font-bold text-ink">
+              <div className="flex justify-between border-t border-silver pt-3 text-base font-bold text-foreground">
                 <span>Total</span>
                 <span>{formatMoney(order.totalCents)}</span>
               </div>
@@ -234,7 +234,7 @@ export default async function OrderPage({
           </div>
 
           <div className="h-fit rounded-2xl border border-silver bg-frost p-6">
-            <h2 className="font-semibold text-ink">Shipping to</h2>
+            <h2 className="font-semibold text-foreground">Shipping to</h2>
             <address className="mt-3 text-sm not-italic leading-relaxed text-slate-ui">
               {address.fullName}
               <br />

@@ -61,7 +61,7 @@ export function AddToCart({ product }: { product: ProductInput }) {
           >
             <Minus className="h-3.5 w-3.5" />
           </button>
-          <span className="min-w-8 text-center font-semibold text-ink">
+          <span className="min-w-8 text-center font-semibold text-foreground">
             {quantity}
           </span>
           <button
@@ -79,7 +79,7 @@ export function AddToCart({ product }: { product: ProductInput }) {
         <button
           type="button"
           onClick={add}
-          className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-aqua bg-white px-6 py-3.5 text-sm font-semibold text-aqua-deep transition-all hover:bg-aqua-soft hover:scale-[1.02]"
+          className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-aqua bg-card px-6 py-3.5 text-sm font-semibold text-aqua-deep transition-all hover:bg-aqua-soft hover:scale-[1.02]"
         >
           <ShoppingBag className="h-4 w-4" strokeWidth={2} />
           Add to cart

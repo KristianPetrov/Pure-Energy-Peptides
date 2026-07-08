@@ -23,8 +23,8 @@ export function AdminTabs() {
             href={tab.href}
             className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-all ${
               active
-                ? "bg-white text-ink shadow-sm"
-                : "text-slate-ui hover:text-ink"
+                ? "bg-card text-foreground shadow-sm"
+                : "text-slate-ui hover:text-foreground"
             }`}
           >
             {tab.label}

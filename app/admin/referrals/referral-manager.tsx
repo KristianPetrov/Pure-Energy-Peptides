@@ -34,7 +34,7 @@ type PartnerRow = {
 };
 
 const inputClass =
-  "rounded-xl border border-silver bg-white px-3 py-2.5 text-sm outline-none transition-colors focus:border-aqua";
+  "rounded-xl border border-silver bg-card px-3 py-2.5 text-sm outline-none transition-colors focus:border-aqua";
 
 export function ReferralManager({ partners }: { partners: PartnerRow[] }) {
   return (
@@ -125,7 +125,7 @@ function PartnerCard({ partner }: { partner: PartnerRow }) {
   const [pending, startTransition] = useTransition();
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-silver bg-white">
+    <div className="overflow-hidden rounded-2xl border border-silver bg-card">
       <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
         <button
           type="button"
@@ -135,7 +135,7 @@ function PartnerCard({ partner }: { partner: PartnerRow }) {
           <ChevronDown
             className={`h-4 w-4 shrink-0 text-faint transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
           />
-          <span className="truncate font-semibold text-ink">
+          <span className="truncate font-semibold text-foreground">
             {partner.name}
           </span>
           {partner.email && (
@@ -188,7 +188,7 @@ function CodeRowView({ code }: { code: CodeRow }) {
       : `${formatMoney(code.discountValue)} off`;
 
   return (
-    <div className="flex flex-wrap items-center gap-3 rounded-xl border border-silver bg-white px-4 py-3">
+    <div className="flex flex-wrap items-center gap-3 rounded-xl border border-silver bg-card px-4 py-3">
       <span className="font-mono text-sm font-bold text-aqua-deep">
         {code.code}
       </span>
@@ -303,7 +303,7 @@ function NewCodeForm({ partnerId }: { partnerId: string }) {
           type="button"
           onClick={submit}
           disabled={pending || code.trim().length < 2}
-          className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2.5 text-xs font-semibold text-white transition-transform hover:scale-[1.03] disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2.5 text-xs font-semibold text-canvas transition-transform hover:scale-[1.03] disabled:opacity-50"
         >
           {pending ? (
             <Loader2 className="h-3.5 w-3.5 animate-spin" />

@@ -6,6 +6,7 @@ import { LogoMark, LogoWordmark } from "./logo";
 import { CartButton } from "./cart-button";
 import { MobileMenu } from "./mobile-menu";
 import { StickyHeader } from "./sticky-header";
+import { ThemeToggle } from "./theme-toggle";
 
 const NAV_LINKS = [
   { href: "/store", label: "Store" },
@@ -14,7 +15,8 @@ const NAV_LINKS = [
   { href: "/track", label: "Track Order" },
 ];
 
-async function SessionLinks() {
+async function SessionLinks ()
+{
   const session = await auth();
   const user = session?.user;
 
@@ -54,7 +56,8 @@ async function SessionLinks() {
   );
 }
 
-async function SessionMobileMenu() {
+async function SessionMobileMenu ()
+{
   const session = await auth();
   const user = session?.user;
 
@@ -67,7 +70,8 @@ async function SessionMobileMenu() {
   );
 }
 
-function MobileMenuFallback() {
+function MobileMenuFallback ()
+{
   return (
     <div className="md:hidden">
       <div className="h-10 w-10 rounded-full border border-white/15 bg-white/5" />
@@ -75,10 +79,11 @@ function MobileMenuFallback() {
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader ()
+{
   return (
     <StickyHeader>
-      <div className="border-b border-white/10 bg-ink/95 backdrop-blur-xl">
+      <div className="border-b border-white/10 bg-shell/95 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
           <Link
             href="/"
@@ -106,6 +111,7 @@ export function SiteHeader() {
                 <SessionLinks />
               </Suspense>
             </div>
+            <ThemeToggle />
             <CartButton />
             <Suspense fallback={<MobileMenuFallback />}>
               <SessionMobileMenu />

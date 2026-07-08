@@ -11,11 +11,12 @@ import { formatMoney } from "@/lib/format";
 import { useCart } from "./cart-provider";
 
 const inputClass =
-  "w-full rounded-xl border border-silver bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-aqua focus:ring-2 focus:ring-aqua/20";
+  "w-full rounded-xl border border-silver bg-card px-4 py-3 text-sm outline-none transition-colors focus:border-aqua focus:ring-2 focus:ring-aqua/20";
 
 type AppliedCode = { code: string; discountCents: number };
 
-export function CheckoutForm() {
+export function CheckoutForm ()
+{
   const { items, subtotalCents, hydrated, clear } = useCart();
   const router = useRouter();
 
@@ -33,9 +34,11 @@ export function CheckoutForm() {
   const [codePending, startCodeTransition] = useTransition();
 
   // Re-validate the applied code whenever the subtotal changes.
-  useEffect(() => {
+  useEffect(() =>
+  {
     if (!applied) return;
-    startCodeTransition(async () => {
+    startCodeTransition(async () =>
+    {
       const result = await applyReferralCode(applied.code, subtotalCents);
       if (result.ok) {
         setApplied({ code: result.code, discountCents: result.discountCents });
@@ -51,10 +54,12 @@ export function CheckoutForm() {
   const discountCents = applied?.discountCents ?? 0;
   const totalCents = subtotalCents - discountCents + shipping.priceCents;
 
-  const handleApplyCode = () => {
+  const handleApplyCode = () =>
+  {
     setCodeError(null);
     if (!codeInput.trim()) return;
-    startCodeTransition(async () => {
+    startCodeTransition(async () =>
+    {
       const result = await applyReferralCode(codeInput, subtotalCents);
       if (result.ok) {
         setApplied({ code: result.code, discountCents: result.discountCents });
@@ -66,7 +71,8 @@ export function CheckoutForm() {
     });
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) =>
+  {
     event.preventDefault();
     setFormError(null);
 
@@ -138,58 +144,58 @@ export function CheckoutForm() {
       <div className="flex flex-col gap-10">
         {/* Shipping details */}
         <section>
-          <h2 className="text-lg font-semibold text-ink">Shipping details</h2>
+          <h2 className="text-lg font-semibold text-foreground">Shipping details</h2>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <label className="mb-1.5 block text-sm font-medium text-ink" htmlFor="fullName">
+              <label className="mb-1.5 block text-sm font-medium text-foreground" htmlFor="fullName">
                 Full name
               </label>
               <input id="fullName" name="fullName" required className={inputClass} />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-ink" htmlFor="email">
+              <label className="mb-1.5 block text-sm font-medium text-foreground" htmlFor="email">
                 Email
               </label>
               <input id="email" name="email" type="email" required className={inputClass} />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-ink" htmlFor="phone">
+              <label className="mb-1.5 block text-sm font-medium text-foreground" htmlFor="phone">
                 Phone <span className="text-faint">(optional)</span>
               </label>
               <input id="phone" name="phone" type="tel" className={inputClass} />
             </div>
             <div className="sm:col-span-2">
-              <label className="mb-1.5 block text-sm font-medium text-ink" htmlFor="address1">
+              <label className="mb-1.5 block text-sm font-medium text-foreground" htmlFor="address1">
                 Address
               </label>
               <input id="address1" name="address1" required className={inputClass} />
             </div>
             <div className="sm:col-span-2">
-              <label className="mb-1.5 block text-sm font-medium text-ink" htmlFor="address2">
+              <label className="mb-1.5 block text-sm font-medium text-foreground" htmlFor="address2">
                 Apartment, suite, etc. <span className="text-faint">(optional)</span>
               </label>
               <input id="address2" name="address2" className={inputClass} />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-ink" htmlFor="city">
+              <label className="mb-1.5 block text-sm font-medium text-foreground" htmlFor="city">
                 City
               </label>
               <input id="city" name="city" required className={inputClass} />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-ink" htmlFor="state">
+              <label className="mb-1.5 block text-sm font-medium text-foreground" htmlFor="state">
                 State / region
               </label>
               <input id="state" name="state" required className={inputClass} />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-ink" htmlFor="postalCode">
+              <label className="mb-1.5 block text-sm font-medium text-foreground" htmlFor="postalCode">
                 Postal code
               </label>
               <input id="postalCode" name="postalCode" required className={inputClass} />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-ink" htmlFor="country">
+              <label className="mb-1.5 block text-sm font-medium text-foreground" htmlFor="country">
                 Country
               </label>
               <input id="country" name="country" defaultValue="United States" required className={inputClass} />
@@ -199,16 +205,15 @@ export function CheckoutForm() {
 
         {/* Shipping method */}
         <section>
-          <h2 className="text-lg font-semibold text-ink">Shipping method</h2>
+          <h2 className="text-lg font-semibold text-foreground">Shipping method</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {SHIPPING_OPTIONS.map((option) => (
               <label
                 key={option.id}
-                className={`flex cursor-pointer items-center justify-between rounded-xl border-2 px-5 py-4 transition-all ${
-                  shippingMethod === option.id
+                className={`flex cursor-pointer items-center justify-between rounded-xl border-2 px-5 py-4 transition-all ${shippingMethod === option.id
                     ? "border-aqua bg-aqua-soft"
-                    : "border-silver bg-white hover:border-faint"
-                }`}
+                    : "border-silver bg-card hover:border-faint"
+                  }`}
               >
                 <span className="flex items-center gap-3">
                   <input
@@ -219,11 +224,11 @@ export function CheckoutForm() {
                     onChange={() => setShippingMethod(option.id)}
                     className="accent-aqua"
                   />
-                  <span className="text-sm font-medium text-ink">
+                  <span className="text-sm font-medium text-foreground">
                     {option.label}
                   </span>
                 </span>
-                <span className="text-sm font-semibold text-ink">
+                <span className="text-sm font-semibold text-foreground">
                   {formatMoney(option.priceCents)}
                 </span>
               </label>
@@ -233,7 +238,7 @@ export function CheckoutForm() {
 
         {/* Payment preference */}
         <section>
-          <h2 className="text-lg font-semibold text-ink">
+          <h2 className="text-lg font-semibold text-foreground">
             Preferred payment method
           </h2>
           <p className="mt-1 text-sm text-faint">
@@ -244,11 +249,10 @@ export function CheckoutForm() {
             {(["zelle", "venmo"] as const).map((method) => (
               <label
                 key={method}
-                className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-4 transition-all ${
-                  paymentMethod === method
+                className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-4 transition-all ${paymentMethod === method
                     ? "border-flame bg-flame-soft"
-                    : "border-silver bg-white hover:border-faint"
-                }`}
+                    : "border-silver bg-card hover:border-faint"
+                  }`}
               >
                 <input
                   type="radio"
@@ -258,7 +262,7 @@ export function CheckoutForm() {
                   onChange={() => setPaymentMethod(method)}
                   className="accent-[#ff7a00]"
                 />
-                <span className="text-sm font-medium capitalize text-ink">
+                <span className="text-sm font-medium capitalize text-foreground">
                   {method}
                 </span>
               </label>
@@ -268,7 +272,7 @@ export function CheckoutForm() {
 
         {/* Referral code */}
         <section>
-          <h2 className="text-lg font-semibold text-ink">Referral code</h2>
+          <h2 className="text-lg font-semibold text-foreground">Referral code</h2>
           <div className="mt-4 flex gap-3">
             <input
               value={codeInput}
@@ -302,7 +306,7 @@ export function CheckoutForm() {
       {/* Order summary */}
       <aside className="lg:sticky lg:top-32 h-fit">
         <div className="iridescent-border rounded-2xl p-6">
-          <h2 className="text-lg font-semibold text-ink">Order summary</h2>
+          <h2 className="text-lg font-semibold text-foreground">Order summary</h2>
           <ul className="mt-5 space-y-4">
             {items.map((item) => (
               <li key={item.slug} className="flex items-center gap-3">
@@ -316,10 +320,10 @@ export function CheckoutForm() {
                   />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-ink">{item.name}</p>
+                  <p className="text-sm font-medium text-foreground">{item.name}</p>
                   <p className="text-xs text-faint">× {item.quantity}</p>
                 </div>
-                <p className="text-sm font-semibold text-ink">
+                <p className="text-sm font-semibold text-foreground">
                   {formatMoney(item.priceCents * item.quantity)}
                 </p>
               </li>
@@ -340,7 +344,7 @@ export function CheckoutForm() {
               <span>Shipping</span>
               <span>{formatMoney(shipping.priceCents)}</span>
             </div>
-            <div className="flex justify-between border-t border-silver pt-3 text-base font-bold text-ink">
+            <div className="flex justify-between border-t border-silver pt-3 text-base font-bold text-foreground">
               <span>Total</span>
               <span>{formatMoney(totalCents)}</span>
             </div>

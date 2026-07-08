@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Comfortaa, Cookie, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import { CartProvider } from "@/components/cart-provider";
 import { CartDrawer } from "@/components/cart-drawer";
 import { JsonLd } from "@/components/json-ld";
@@ -117,15 +118,18 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${comfortaa.variable} ${cookie.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-white text-ink">
+      <body className="min-h-full flex flex-col bg-canvas text-ink">
         <JsonLd data={structuredData} />
-        <CartProvider>
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-          <CartDrawer />
-        </CartProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <CartProvider>
+            <SiteHeader />
+            <main className="flex-1">{children}</main>
+            <SiteFooter />
+            <CartDrawer />
+          </CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

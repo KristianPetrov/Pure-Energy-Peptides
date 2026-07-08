@@ -33,12 +33,12 @@ export default async function AccountPage() {
         <h1 className="text-3xl font-bold tracking-tight">Your account</h1>
         <p className="mt-2 text-sm text-slate-ui">
           Signed in as{" "}
-          <span className="font-medium text-ink">{session.user.email}</span>
+          <span className="font-medium text-foreground">{session.user.email}</span>
         </p>
       </Reveal>
 
       <Reveal delay={100}>
-        <h2 className="mt-12 text-lg font-semibold text-ink">Order history</h2>
+        <h2 className="mt-12 text-lg font-semibold text-foreground">Order history</h2>
       </Reveal>
 
       {orders.length === 0 ? (
@@ -63,10 +63,10 @@ export default async function AccountPage() {
             <Reveal key={order.id} delay={index * 60}>
               <Link
                 href={`/order/${order.reference}`}
-                className="card-lift flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-silver bg-white p-5"
+                className="card-lift flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-silver bg-card p-5"
               >
                 <div>
-                  <p className="font-mono text-sm font-semibold text-ink">
+                  <p className="font-mono text-sm font-semibold text-foreground">
                     {order.reference}
                   </p>
                   <p className="mt-0.5 text-xs text-faint">
@@ -77,7 +77,7 @@ export default async function AccountPage() {
                 </div>
                 <div className="flex items-center gap-4">
                   <OrderStatusBadge status={order.status} />
-                  <p className="text-sm font-bold text-ink">
+                  <p className="text-sm font-bold text-foreground">
                     {formatMoney(order.totalCents)}
                   </p>
                   <ArrowRight className="h-4 w-4 text-faint" />

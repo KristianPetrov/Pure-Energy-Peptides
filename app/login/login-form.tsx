@@ -25,7 +25,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
       <form action={formAction} className="flex flex-col gap-4">
         <input type="hidden" name="redirectTo" value={redirectTo ?? ""} />
         <div>
-          <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink">
+          <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
             Email
           </label>
           <input
@@ -39,7 +39,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
         </div>
         <div>
           <div className="mb-1.5 flex items-center justify-between">
-            <label htmlFor="password" className="text-sm font-medium text-ink">
+            <label htmlFor="password" className="text-sm font-medium text-foreground">
               Password
             </label>
             <Link

@@ -16,13 +16,13 @@ export function RegisterForm() {
     <div className="flex flex-col gap-5">
       <form action={formAction} className="flex flex-col gap-4">
         <div>
-          <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-ink">
+          <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-foreground">
             Full name
           </label>
           <input id="name" name="name" autoComplete="name" required className={authInputClass} />
         </div>
         <div>
-          <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink">
+          <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
             Email
           </label>
           <input
@@ -35,7 +35,7 @@ export function RegisterForm() {
           />
         </div>
         <div>
-          <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-ink">
+          <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-foreground">
             Password
           </label>
           <input
@@ -51,7 +51,7 @@ export function RegisterForm() {
           </p>
         </div>
         <div>
-          <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-ink">
+          <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-foreground">
             Confirm password
           </label>
           <input

@@ -6,7 +6,8 @@ import { Minus, Plus, Trash2, X } from "lucide-react";
 import { formatMoney } from "@/lib/format";
 import { useCart } from "./cart-provider";
 
-export function CartDrawer() {
+export function CartDrawer ()
+{
   const { items, subtotalCents, isOpen, closeCart, setQuantity, removeItem } =
     useCart();
 
@@ -17,14 +18,12 @@ export function CartDrawer() {
     >
       <div
         onClick={closeCart}
-        className={`absolute inset-0 bg-ink/25 backdrop-blur-sm transition-opacity duration-300 ${
-          isOpen ? "opacity-100" : "opacity-0"
-        }`}
+        className={`absolute inset-0 bg-shell/25 backdrop-blur-sm transition-opacity duration-300 dark:bg-black/60 ${isOpen ? "opacity-100" : "opacity-0"
+          }`}
       />
       <aside
-        className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-silver bg-white shadow-2xl transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-silver bg-card shadow-2xl transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         role="dialog"
         aria-label="Shopping cart"
       >

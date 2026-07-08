@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import heroLogo from "@/public/brand/pe-clear.png";
-import {
-  ArrowRight,
-  Atom,
-  FlaskConical,
-  Microscope,
-  PackageCheck,
-  ShieldCheck,
-  Sparkles,
-} from "lucide-react";
+import
+  {
+    ArrowRight,
+    Atom,
+    FlaskConical,
+    Microscope,
+    PackageCheck,
+    ShieldCheck,
+    Sparkles,
+  } from "lucide-react";
 import type { Product } from "@/db/schema";
 import { getFeaturedProducts } from "@/lib/data";
 import { BRAND_NAME } from "@/lib/constants";
@@ -56,7 +57,8 @@ const VALUES = [
   },
 ];
 
-export default async function HomePage() {
+export default async function HomePage ()
+{
   let featured: Product[] = [];
   try {
     featured = await getFeaturedProducts(6);
@@ -71,7 +73,7 @@ export default async function HomePage() {
         <div className="absolute inset-0">
           <EnergyFlow />
         </div>
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/70 via-white/35 to-white" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-canvas/70 via-canvas/35 to-canvas" />
         <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 pb-24 pt-20 text-center sm:pt-28">
           <Reveal>
             <div className="mx-auto mb-8 flex justify-center animate-float">
@@ -86,7 +88,7 @@ export default async function HomePage() {
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-silver bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-ui backdrop-blur">
+            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-silver bg-card/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-ui backdrop-blur">
               <Atom className="h-3.5 w-3.5 text-aqua" />
               Balance · Energy · Vitality
             </p>
@@ -131,7 +133,7 @@ export default async function HomePage() {
             {METRICS.map((metric) => (
               <div
                 key={metric.label}
-                className="bg-white/70 p-6 text-center backdrop-blur"
+                className="bg-card/70 p-6 text-center backdrop-blur"
               >
                 <p className="text-3xl font-bold text-gradient-brand">
                   {metric.value}
@@ -161,7 +163,7 @@ export default async function HomePage() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {VALUES.map((value, index) => (
             <Reveal key={value.title} delay={index * 100}>
-              <div className="card-lift h-full rounded-2xl border border-silver bg-white p-6">
+              <div className="card-lift h-full rounded-2xl border border-silver bg-card p-6">
                 <div
                   className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl ${value.accent}`}
                 >
@@ -216,7 +218,7 @@ export default async function HomePage() {
             <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-aqua/10 blur-3xl animate-pulse-soft" />
             <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-flame/10 blur-3xl animate-pulse-soft" />
             <div className="relative max-w-2xl">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-flame">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-card px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-flame">
                 <PackageCheck className="h-4 w-4" />
                 Research Use Only
               </div>
@@ -232,13 +234,13 @@ export default async function HomePage() {
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   href="/compliance"
-                  className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
+                  className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-canvas transition-transform hover:scale-[1.03]"
                 >
                   Read our compliance policy
                 </Link>
                 <Link
                   href="/store"
-                  className="inline-flex items-center gap-2 rounded-full border border-silver bg-white px-6 py-3 text-sm font-semibold text-ink transition-all hover:border-aqua hover:text-aqua-deep"
+                  className="inline-flex items-center gap-2 rounded-full border border-silver bg-card px-6 py-3 text-sm font-semibold text-ink transition-all hover:border-aqua hover:text-aqua-deep"
                 >
                   Start researching
                 </Link>

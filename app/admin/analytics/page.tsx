@@ -109,7 +109,7 @@ export default async function AdminAnalyticsPage({
             href={`/admin/analytics?range=${r}`}
             className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
               range === r
-                ? "bg-ink text-white"
+                ? "bg-ink text-canvas"
                 : "border border-silver text-slate-ui hover:border-aqua hover:text-aqua-deep"
             }`}
           >
@@ -126,7 +126,7 @@ export default async function AdminAnalyticsPage({
       </div>
 
       {/* Daily revenue chart */}
-      <div className="mt-8 rounded-2xl border border-silver bg-white p-6">
+      <div className="mt-8 rounded-2xl border border-silver bg-card p-6">
         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-ui">
           Daily revenue
         </h2>
@@ -155,7 +155,7 @@ export default async function AdminAnalyticsPage({
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         {/* Top products */}
-        <div className="rounded-2xl border border-silver bg-white p-6">
+        <div className="rounded-2xl border border-silver bg-card p-6">
           <h2 className="text-sm font-bold uppercase tracking-wider text-slate-ui">
             Top products by revenue
           </h2>
@@ -166,8 +166,8 @@ export default async function AdminAnalyticsPage({
               {topProducts.map((product) => (
                 <li key={product.name}>
                   <div className="flex justify-between text-sm">
-                    <span className="text-ink">{product.name}</span>
-                    <span className="font-semibold text-ink">
+                    <span className="text-foreground">{product.name}</span>
+                    <span className="font-semibold text-foreground">
                       {formatMoney(product.cents)}
                     </span>
                   </div>
@@ -188,7 +188,7 @@ export default async function AdminAnalyticsPage({
 
         {/* Breakdowns */}
         <div className="flex flex-col gap-6">
-          <div className="rounded-2xl border border-silver bg-white p-6">
+          <div className="rounded-2xl border border-silver bg-card p-6">
             <h2 className="text-sm font-bold uppercase tracking-wider text-slate-ui">
               Orders by status
             </h2>
@@ -198,7 +198,7 @@ export default async function AdminAnalyticsPage({
                   <span className="text-slate-ui">
                     {STATUS_LABELS[status] ?? status}
                   </span>
-                  <span className="font-semibold text-ink">{count}</span>
+                  <span className="font-semibold text-foreground">{count}</span>
                 </li>
               ))}
               {statusCounts.size === 0 && (
@@ -206,7 +206,7 @@ export default async function AdminAnalyticsPage({
               )}
             </ul>
           </div>
-          <div className="rounded-2xl border border-silver bg-white p-6">
+          <div className="rounded-2xl border border-silver bg-card p-6">
             <h2 className="text-sm font-bold uppercase tracking-wider text-slate-ui">
               Payments &amp; referrals
             </h2>
@@ -216,16 +216,16 @@ export default async function AdminAnalyticsPage({
                   <span className="capitalize text-slate-ui">
                     {method} preference
                   </span>
-                  <span className="font-semibold text-ink">{count}</span>
+                  <span className="font-semibold text-foreground">{count}</span>
                 </li>
               ))}
               <li className="flex justify-between">
                 <span className="text-slate-ui">Referred orders</span>
-                <span className="font-semibold text-ink">{referredCount}</span>
+                <span className="font-semibold text-foreground">{referredCount}</span>
               </li>
               <li className="flex justify-between">
                 <span className="text-slate-ui">Discounts given</span>
-                <span className="font-semibold text-ink">
+                <span className="font-semibold text-foreground">
                   {formatMoney(discountsGiven)}
                 </span>
               </li>

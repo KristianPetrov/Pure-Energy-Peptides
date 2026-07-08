@@ -151,7 +151,7 @@ export default async function ProductPage({
             />
 
             <div className="rounded-2xl border border-silver bg-frost p-5">
-              <div className="flex items-center gap-2 text-sm font-semibold text-ink">
+              <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
                 <FlaskConical className="h-4 w-4 text-aqua-deep" />
                 Research overview
               </div>
@@ -163,7 +163,7 @@ export default async function ProductPage({
             <div className="flex gap-3 rounded-2xl border border-flame/25 bg-flame-soft p-5">
               <ShieldAlert className="h-5 w-5 shrink-0 text-flame" />
               <div>
-                <p className="text-sm font-semibold text-ink">
+                <p className="text-sm font-semibold text-foreground">
                   Research Use Only
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-slate-ui">

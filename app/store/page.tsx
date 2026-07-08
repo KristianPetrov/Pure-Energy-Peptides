@@ -59,7 +59,7 @@ export default async function StorePage() {
         <section key={category} className="mt-16">
           <Reveal>
             <div className="flex items-center gap-4">
-              <h2 className="text-xl font-bold text-ink">{category}</h2>
+              <h2 className="text-xl font-bold text-foreground">{category}</h2>
               <div className="h-px flex-1 bg-gradient-to-r from-silver to-transparent" />
             </div>
           </Reveal>

@@ -4,7 +4,8 @@ import { useActionState } from "react";
 import { Search } from "lucide-react";
 import { lookupOrder, type LookupState } from "@/app/actions/orders";
 
-export function TrackForm({ initialReference }: { initialReference?: string }) {
+export function TrackForm ({ initialReference }: { initialReference?: string })
+{
   const [state, formAction, pending] = useActionState<LookupState, FormData>(
     lookupOrder,
     {}
@@ -15,7 +16,7 @@ export function TrackForm({ initialReference }: { initialReference?: string }) {
       <div>
         <label
           htmlFor="reference"
-          className="mb-1.5 block text-sm font-medium text-ink"
+          className="mb-1.5 block text-sm font-medium text-foreground"
         >
           Order reference
         </label>
@@ -25,13 +26,13 @@ export function TrackForm({ initialReference }: { initialReference?: string }) {
           defaultValue={initialReference}
           placeholder="PEP-XXXXXX"
           required
-          className="w-full rounded-xl border border-silver bg-white px-4 py-3 text-sm uppercase tracking-wider outline-none transition-colors focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+          className="w-full rounded-xl border border-silver bg-card px-4 py-3 text-sm uppercase tracking-wider outline-none transition-colors focus:border-aqua focus:ring-2 focus:ring-aqua/20"
         />
       </div>
       <div>
         <label
           htmlFor="email"
-          className="mb-1.5 block text-sm font-medium text-ink"
+          className="mb-1.5 block text-sm font-medium text-foreground"
         >
           Email used at checkout
         </label>
@@ -41,7 +42,7 @@ export function TrackForm({ initialReference }: { initialReference?: string }) {
           type="email"
           placeholder="you@lab.com"
           required
-          className="w-full rounded-xl border border-silver bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-aqua focus:ring-2 focus:ring-aqua/20"
+          className="w-full rounded-xl border border-silver bg-card px-4 py-3 text-sm outline-none transition-colors focus:border-aqua focus:ring-2 focus:ring-aqua/20"
         />
       </div>
 

@@ -30,7 +30,7 @@ export function MobileMenu({
         )}
       </button>
       {open && (
-        <div className="absolute inset-x-0 top-full border-b border-white/10 bg-ink/98 shadow-lg backdrop-blur-xl animate-fade-in">
+        <div className="absolute inset-x-0 top-full border-b border-white/10 bg-shell/98 shadow-lg backdrop-blur-xl animate-fade-in">
           <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
             {links.map((link) => (
               <Link

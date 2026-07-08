@@ -3,13 +3,14 @@ import Link from "next/link";
 import type { Product } from "@/db/schema";
 import { formatMoney } from "@/lib/format";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard ({ product }: { product: Product })
+{
   const outOfStock = product.inventory <= 0;
 
   return (
     <Link
       href={`/store/${product.slug}`}
-      className="card-lift group flex flex-col overflow-hidden rounded-2xl border border-silver bg-white"
+      className="card-lift group flex flex-col overflow-hidden rounded-2xl border border-silver bg-card"
     >
       <div className="iridescent relative flex aspect-square items-center justify-center p-8">
         <Image
@@ -25,7 +26,7 @@ export function ProductCard({ product }: { product: Product }) {
           </span>
         )}
         {outOfStock && (
-          <span className="absolute right-3 top-3 rounded-full bg-ink/80 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+          <span className="absolute right-3 top-3 rounded-full bg-shell/80 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
             Out of stock
           </span>
         )}

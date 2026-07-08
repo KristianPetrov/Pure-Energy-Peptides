@@ -17,7 +17,7 @@ export function ResendForm({ initialEmail }: { initialEmail?: string }) {
   return (
     <form action={formAction} className="flex flex-col gap-4">
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink">
+        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
           Email
         </label>
         <input

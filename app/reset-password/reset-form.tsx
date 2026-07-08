@@ -15,7 +15,7 @@ export function ResetForm({ token }: { token: string }) {
     <form action={formAction} className="flex flex-col gap-4">
       <input type="hidden" name="token" value={token} />
       <div>
-        <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-ink">
+        <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-foreground">
           New password
         </label>
         <input
@@ -31,7 +31,7 @@ export function ResetForm({ token }: { token: string }) {
         </p>
       </div>
       <div>
-        <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-ink">
+        <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-foreground">
           Confirm new password
         </label>
         <input

@@ -69,14 +69,14 @@ function OrderRow({ order }: { order: SerializedOrder }) {
   const address = order.shippingAddress;
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-silver bg-white transition-shadow hover:shadow-sm">
+    <div className="overflow-hidden rounded-2xl border border-silver bg-card transition-shadow hover:shadow-sm">
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
         className="flex w-full flex-wrap items-center justify-between gap-3 px-5 py-4 text-left"
       >
         <div className="flex min-w-0 flex-wrap items-center gap-3">
-          <span className="font-mono text-sm font-bold text-ink">
+          <span className="font-mono text-sm font-bold text-foreground">
             {order.reference}
           </span>
           <span className="truncate text-sm text-slate-ui">
@@ -91,7 +91,7 @@ function OrderRow({ order }: { order: SerializedOrder }) {
         </div>
         <div className="flex items-center gap-3">
           <OrderStatusBadge status={order.status} />
-          <span className="text-sm font-bold text-ink">
+          <span className="text-sm font-bold text-foreground">
             {formatMoney(order.totalCents)}
           </span>
           <ChevronDown
@@ -113,7 +113,7 @@ function OrderRow({ order }: { order: SerializedOrder }) {
                     <span className="text-slate-ui">
                       {item.name} × {item.quantity}
                     </span>
-                    <span className="font-medium text-ink">
+                    <span className="font-medium text-foreground">
                       {formatMoney(item.unitPriceCents * item.quantity)}
                     </span>
                   </li>
@@ -128,7 +128,7 @@ function OrderRow({ order }: { order: SerializedOrder }) {
                   </p>
                 )}
                 <p>Shipping: {formatMoney(order.shippingCents)}</p>
-                <p className="font-bold text-ink">
+                <p className="font-bold text-foreground">
                   Total: {formatMoney(order.totalCents)}
                 </p>
               </div>
@@ -138,7 +138,7 @@ function OrderRow({ order }: { order: SerializedOrder }) {
                 Customer
               </h3>
               <div className="mt-2 text-sm leading-relaxed text-slate-ui">
-                <p className="font-medium text-ink">{address.fullName}</p>
+                <p className="font-medium text-foreground">{address.fullName}</p>
                 <p>{order.email}</p>
                 {address.phone && <p>{address.phone}</p>}
                 <p className="mt-2">
@@ -183,7 +183,7 @@ function OrderRow({ order }: { order: SerializedOrder }) {
                   <select
                     value={carrier}
                     onChange={(event) => setCarrier(event.target.value)}
-                    className="rounded-xl border border-silver bg-white px-3 py-2.5 text-sm outline-none focus:border-aqua"
+                    className="rounded-xl border border-silver bg-card px-3 py-2.5 text-sm outline-none focus:border-aqua"
                   >
                     {CARRIERS.map((c) => (
                       <option key={c} value={c}>
@@ -195,7 +195,7 @@ function OrderRow({ order }: { order: SerializedOrder }) {
                     value={tracking}
                     onChange={(event) => setTracking(event.target.value)}
                     placeholder="Tracking number"
-                    className="rounded-xl border border-silver bg-white px-3 py-2.5 text-sm outline-none focus:border-aqua"
+                    className="rounded-xl border border-silver bg-card px-3 py-2.5 text-sm outline-none focus:border-aqua"
                   />
                   <button
                     type="button"
@@ -225,7 +225,7 @@ function OrderRow({ order }: { order: SerializedOrder }) {
                       type="button"
                       disabled={pending}
                       onClick={() => run(() => cancelOrder(order.id))}
-                      className="rounded-full bg-ink px-4 py-2 text-xs font-semibold text-white disabled:opacity-60"
+                      className="rounded-full bg-ink px-4 py-2 text-xs font-semibold text-canvas disabled:opacity-60"
                     >
                       Yes, cancel order
                     </button>

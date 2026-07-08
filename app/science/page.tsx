@@ -91,11 +91,11 @@ export default function SciencePage() {
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {STANDARDS.map((standard, index) => (
           <Reveal key={standard.title} delay={(index % 3) * 90}>
-            <div className="card-lift h-full rounded-2xl border border-silver bg-white p-6">
+            <div className="card-lift h-full rounded-2xl border border-silver bg-card p-6">
               <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-aqua-soft text-aqua-deep">
                 <standard.icon className="h-5 w-5" strokeWidth={1.8} />
               </div>
-              <h2 className="font-semibold text-ink">{standard.title}</h2>
+              <h2 className="font-semibold text-foreground">{standard.title}</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-ui">
                 {standard.body}
               </p>
@@ -117,7 +117,7 @@ export default function SciencePage() {
                 <span className="text-3xl font-bold text-gradient-brand">
                   {phase.step}
                 </span>
-                <h3 className="mt-3 font-semibold text-ink">{phase.title}</h3>
+                <h3 className="mt-3 font-semibold text-foreground">{phase.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-ui">
                   {phase.body}
                 </p>

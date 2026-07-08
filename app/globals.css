@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Dark mode is driven by the `.dark` class that next-themes sets on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --flame: #ff7a00;
   --flame-deep: #e05f00;
@@ -14,6 +17,30 @@
   --silver: #e5e9f0;
   --silver-bright: #f3f5f9;
   --frost: #f8fafc;
+  --canvas: #ffffff;
+  --card: #ffffff;
+  /* The site "frame" (header, footer, scrims) stays ink-dark in both themes. */
+  --shell: #131c2b;
+}
+
+/* Dark palette: elevation inverts (canvas darkest → card lightest), text
+   tokens flip to light, brand hues brighten slightly for dark surfaces. */
+.dark {
+  --flame: #ff8a1a;
+  --flame-deep: #f27109;
+  --flame-soft: #2d1a09;
+  --aqua: #10cfcf;
+  --aqua-deep: #00b3b3;
+  --aqua-soft: #072626;
+  --ink: #e8edf6;
+  --ink-deep: #f6f8fc;
+  --slate: #a6b0c2;
+  --faint: #7d8799;
+  --silver: #263149;
+  --silver-bright: #131b2c;
+  --frost: #0e1523;
+  --canvas: #0a101c;
+  --card: #141e30;
 }
 
 @theme inline {
@@ -30,6 +57,10 @@
   --color-silver: var(--silver);
   --color-silver-bright: var(--silver-bright);
   --color-frost: var(--frost);
+  --color-canvas: var(--canvas);
+  --color-card: var(--card);
+  --color-shell: var(--shell);
+  --color-foreground: var(--ink);
   --font-sans: var(--font-comfortaa);
   --font-script: var(--font-cookie);
   --font-mono: var(--font-geist-mono);
@@ -102,7 +133,7 @@
 }
 
 body {
-  background: #ffffff;
+  background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
@@ -138,6 +169,22 @@ body {
   animation: iridesce 14s ease-in-out infinite;
 }
 
+/* Dark counterpart of .iridescent: raised navy with the same faint
+   orange/teal hue drift. `background` shorthand resets background-size,
+   so it is re-declared here. */
+.dark .iridescent {
+  background: linear-gradient(
+    115deg,
+    #101828 0%,
+    #141c2f 18%,
+    #0f2424 36%,
+    #241a10 54%,
+    #121a2d 72%,
+    #101828 100%
+  );
+  background-size: 300% 300%;
+}
+
 .iridescent-border {
   position: relative;
   background:
@@ -152,6 +199,20 @@ body {
       )
       border-box;
   border: 1px solid transparent;
+}
+
+.dark .iridescent-border {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(
+        135deg,
+        #2a3550 0%,
+        rgba(16, 207, 207, 0.4) 30%,
+        #2a3550 55%,
+        rgba(255, 138, 26, 0.35) 80%,
+        #2a3550 100%
+      )
+      border-box;
 }
 
 .text-gradient-brand {
@@ -187,6 +248,12 @@ body {
     0 12px 32px -12px rgba(19, 28, 43, 0.14),
     0 4px 12px -6px rgba(0, 199, 199, 0.12);
   border-color: rgba(0, 199, 199, 0.35);
+}
+
+.dark .card-lift:hover {
+  box-shadow:
+    0 12px 32px -12px rgba(0, 0, 0, 0.6),
+    0 4px 12px -6px rgba(16, 207, 207, 0.18);
 }
 
 /* Scroll reveal (driven by IntersectionObserver in components/reveal.tsx) */

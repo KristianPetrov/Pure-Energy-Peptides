@@ -3,12 +3,12 @@ import { LogoMark } from "./logo";
 import { Reveal } from "./reveal";
 
 export const authInputClass =
-  "w-full rounded-xl border border-silver bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-aqua focus:ring-2 focus:ring-aqua/20";
+  "w-full rounded-xl border border-silver bg-canvas px-4 py-3 text-sm outline-none transition-colors focus:border-aqua focus:ring-2 focus:ring-aqua/20";
 
 export const authButtonClass =
   "inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-flame to-flame-deep py-3.5 text-sm font-semibold text-white shadow-lg shadow-flame/25 transition-all hover:scale-[1.02] disabled:opacity-60";
 
-export function AuthCard({
+export function AuthCard ({
   title,
   subtitle,
   children,
@@ -16,7 +16,8 @@ export function AuthCard({
   title: string;
   subtitle?: string;
   children: ReactNode;
-}) {
+})
+{
   return (
     <div className="mx-auto max-w-md px-4 py-20">
       <Reveal>

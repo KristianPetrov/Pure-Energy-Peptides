@@ -2,13 +2,14 @@ import type { ReactNode } from "react";
 import { RUO_NOTICE } from "@/lib/constants";
 import { Reveal } from "@/components/reveal";
 
-export function LegalPage({
+export function LegalPage ({
   title,
   children,
 }: {
   title: string;
   children: ReactNode;
-}) {
+})
+{
   return (
     <div className="mx-auto max-w-3xl px-4 py-16">
       <Reveal>
