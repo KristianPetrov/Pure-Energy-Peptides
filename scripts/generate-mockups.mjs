@@ -9,11 +9,16 @@
  * The warped label is multiply-blended onto the bottle so the render's own
  * shading, edge shadows, and the curved bottom seam stay visible.
  *
- * Usage: node scripts/generate-mockups.mjs [label-name ...]
- *        (no args = all labels in public/products/labels/)
+ * Adding a product only requires dropping its label PNG into
+ * public/products/labels/ — this script (run automatically via predev and
+ * prebuild) generates public/products/mockups/<name>.png for any label whose
+ * mockup is missing or older than the label or bottle render.
+ *
+ * Usage: node scripts/generate-mockups.mjs [--force] [label-name ...]
+ *        (no names = all labels in public/products/labels/)
  */
 import sharp from "sharp";
-import { readdir } from "node:fs/promises";
+import { mkdir, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 
 const ROOT = path.join(import.meta.dirname, "..");
@@ -74,6 +79,20 @@ function warpLabel(label, lw, lh, channels) {
   return out;
 }
 
+async function mtime(file) {
+  return stat(file).then(
+    (s) => s.mtimeMs,
+    () => -1
+  );
+}
+
+async function isUpToDate(labelFile, bottleMtime) {
+  const name = path.basename(labelFile, ".png");
+  const outMtime = await mtime(path.join(OUT_DIR, `${name}.png`));
+  const labelMtime = await mtime(path.join(LABELS_DIR, labelFile));
+  return outMtime > labelMtime && outMtime > bottleMtime;
+}
+
 async function generate(labelFile, bottle) {
   const name = path.basename(labelFile, ".png");
   // Flatten onto white so transparent rounded corners match the white plate.
@@ -101,11 +120,13 @@ async function generate(labelFile, bottle) {
 }
 
 const args = process.argv.slice(2);
+const force = args.includes("--force");
+const names = args.filter((arg) => arg !== "--force");
 const all = (await readdir(LABELS_DIR)).filter(
   (f) => f.endsWith(".png") && f !== "mock-bottle.png"
 );
-const targets = args.length
-  ? all.filter((f) => args.includes(path.basename(f, ".png")))
+let targets = names.length
+  ? all.filter((f) => names.includes(path.basename(f, ".png")))
   : all;
 
 if (!targets.length) {
@@ -113,6 +134,23 @@ if (!targets.length) {
   process.exit(1);
 }
 
-const bottle = await loadBottle();
-for (const f of targets) await generate(f, bottle);
-console.log(`Done: ${targets.length} mockup(s) written to public/products/mockups/`);
+await mkdir(OUT_DIR, { recursive: true });
+
+if (!force) {
+  const bottleMtime = await mtime(BOTTLE);
+  const stale = [];
+  for (const f of targets) {
+    if (!(await isUpToDate(f, bottleMtime))) stale.push(f);
+  }
+  targets = stale;
+}
+
+if (!targets.length) {
+  console.log("All mockups are up to date.");
+} else {
+  const bottle = await loadBottle();
+  for (const f of targets) await generate(f, bottle);
+  console.log(
+    `Done: ${targets.length} mockup(s) written to public/products/mockups/`
+  );
+}

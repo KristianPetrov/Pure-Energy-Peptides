@@ -29,13 +29,13 @@ export function ProductCard ({ variants }: { variants: ProductVariant[] })
         className="absolute inset-0 z-[1]"
       />
 
-      <div className="iridescent relative flex aspect-square items-center justify-center">
+      <div className="iridescent relative flex aspect-[16/9] items-center justify-center">
         <Image
           key={selected.slug}
           src={selected.image}
           alt={formatProductVariantName(selected)}
-          width={220}
-          height={250}
+          width={320}
+          height={180}
           className="h-full w-full object-contain animate-fade-in transition-transform duration-500 ease-out group-hover:scale-[1.06] group-hover:-rotate-1"
         />
         <WireConnect className="pointer-events-none absolute inset-x-0 bottom-1 h-8 w-full sm:bottom-2 sm:h-12" />

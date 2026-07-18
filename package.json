@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "mockups": "node scripts/generate-mockups.mjs",
+    "predev": "node scripts/generate-mockups.mjs",
+    "prebuild": "node scripts/generate-mockups.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
