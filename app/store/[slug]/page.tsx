@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, FlaskConical, ShieldAlert } from "lucide-react";
-import { getProductBySlug } from "@/lib/data";
-import { formatMoney } from "@/lib/format";
-import { BRAND_NAME, RUO_NOTICE, getSiteUrl } from "@/lib/constants";
-import { AddToCart } from "@/components/add-to-cart";
+import { ArrowLeft } from "lucide-react";
+import {
+  getActiveProductVariantsByName,
+  getProductBySlug,
+} from "@/lib/data";
+import { BRAND_NAME, getSiteUrl } from "@/lib/constants";
+import { groupProductVariants } from "@/lib/product-variants";
 import { JsonLd } from "@/components/json-ld";
+import { ProductPurchase } from "@/components/product-purchase";
 import { Reveal } from "@/components/reveal";
 
 export async function generateMetadata({
@@ -43,6 +45,9 @@ export default async function ProductPage({
   const { slug } = await params;
   const product = await getProductBySlug(slug).catch(() => null);
   if (!product || !product.active) notFound();
+  const variants = await getActiveProductVariantsByName(product.name)
+    .then((items) => groupProductVariants(items)[0]?.variants ?? [product])
+    .catch(() => [product]);
 
   const siteUrl = getSiteUrl();
   const productUrl = `${siteUrl}/store/${product.slug}`;
@@ -110,70 +115,7 @@ export default async function ProductPage({
         </Link>
       </Reveal>
 
-      <div className="mt-8 grid gap-12 lg:grid-cols-2">
-        <Reveal>
-          <div className="iridescent relative flex aspect-square items-center justify-center rounded-3xl border border-silver p-12">
-            <Image
-              src={product.image}
-              alt={product.name}
-              width={340}
-              height={385}
-              priority
-              className="h-full w-full object-contain animate-float"
-            />
-          </div>
-        </Reveal>
-
-        <Reveal delay={120}>
-          <div className="flex flex-col gap-6">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-aqua-deep">
-                {product.category}
-              </p>
-              <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                {product.name}
-              </h1>
-              <p className="mt-2 text-slate-ui">{product.shortDescription}</p>
-            </div>
-
-            <p className="text-3xl font-bold text-gradient-brand">
-              {formatMoney(product.priceCents)}
-            </p>
-
-            <AddToCart
-              product={{
-                slug: product.slug,
-                name: product.name,
-                image: product.image,
-                priceCents: product.priceCents,
-                inventory: product.inventory,
-              }}
-            />
-
-            <div className="rounded-2xl border border-silver bg-frost p-5">
-              <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                <FlaskConical className="h-4 w-4 text-aqua-deep" />
-                Research overview
-              </div>
-              <p className="mt-2.5 text-sm leading-relaxed text-slate-ui">
-                {product.description}
-              </p>
-            </div>
-
-            <div className="flex gap-3 rounded-2xl border border-flame/25 bg-flame-soft p-5">
-              <ShieldAlert className="h-5 w-5 shrink-0 text-flame" />
-              <div>
-                <p className="text-sm font-semibold text-foreground">
-                  Research Use Only
-                </p>
-                <p className="mt-1 text-xs leading-relaxed text-slate-ui">
-                  {RUO_NOTICE}
-                </p>
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </div>
+      <ProductPurchase initialSlug={product.slug} variants={variants} />
     </div>
   );
 }

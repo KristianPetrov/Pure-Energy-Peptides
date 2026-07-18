@@ -16,6 +16,7 @@ import {
 } from "@/db/schema";
 import { getShippingOption } from "@/lib/constants";
 import { generateOrderReference } from "@/lib/reference";
+import { formatProductVariantName } from "@/lib/product-variants";
 import {
   computeDiscountCents,
   isValidReferralCodeFormat,
@@ -203,7 +204,7 @@ export async function placeOrder(payload: unknown): Promise<PlaceOrderResult> {
     return {
       orderId: order.id,
       productId: product.id,
-      name: product.name,
+      name: formatProductVariantName(product),
       slug: product.slug,
       image: product.image,
       unitPriceCents: product.priceCents,

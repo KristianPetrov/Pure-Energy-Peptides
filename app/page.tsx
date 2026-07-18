@@ -12,9 +12,12 @@ import
     ShieldCheck,
     Sparkles,
   } from "lucide-react";
-import type { Product } from "@/db/schema";
-import { getFeaturedProducts } from "@/lib/data";
+import { getActiveProducts } from "@/lib/data";
 import { BRAND_NAME } from "@/lib/constants";
+import {
+  groupProductVariants,
+  type ProductGroup,
+} from "@/lib/product-variants";
 import { EnergyFlow } from "@/components/energy-flow";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
@@ -59,9 +62,11 @@ const VALUES = [
 
 export default async function HomePage ()
 {
-  let featured: Product[] = [];
+  let featured: ProductGroup[] = [];
   try {
-    featured = await getFeaturedProducts(6);
+    featured = groupProductVariants(await getActiveProducts())
+      .filter(({ variants }) => variants.some((variant) => variant.featured))
+      .slice(0, 6);
   } catch {
     // Database not configured yet; render the page without featured products.
   }
@@ -202,9 +207,9 @@ export default async function HomePage ()
             </div>
           </Reveal>
           <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
-            {featured.map((product, index) => (
+            {featured.map(({ product, variants }, index) => (
               <Reveal key={product.id} className="h-full" delay={(index % 3) * 100}>
-                <ProductCard product={product} />
+                <ProductCard variants={variants} />
               </Reveal>
             ))}
           </div>

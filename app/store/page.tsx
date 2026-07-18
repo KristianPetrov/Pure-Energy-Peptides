@@ -3,6 +3,7 @@ import type { Product } from "@/db/schema";
 import { getActiveProducts } from "@/lib/data";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
+import { groupProductVariants } from "@/lib/product-variants";
 
 
 export const metadata: Metadata = {
@@ -27,7 +28,10 @@ export default async function StorePage() {
     dbError = true;
   }
 
-  const categories = [...new Set(products.map((p) => p.category))];
+  const productGroups = groupProductVariants(products);
+  const categories = [
+    ...new Set(productGroups.map(({ product }) => product.category)),
+  ];
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16">
@@ -64,11 +68,11 @@ export default async function StorePage() {
             </div>
           </Reveal>
           <div className="mt-7 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
-            {products
-              .filter((product) => product.category === category)
-              .map((product, index) => (
+            {productGroups
+              .filter(({ product }) => product.category === category)
+              .map(({ product, variants }, index) => (
                 <Reveal key={product.id} className="h-full" delay={(index % 3) * 80}>
-                  <ProductCard product={product} />
+                  <ProductCard variants={variants} />
                 </Reveal>
               ))}
           </div>

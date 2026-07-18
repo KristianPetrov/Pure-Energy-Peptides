@@ -51,37 +51,25 @@ const catalog: SeedProduct[] = [
     featured: true,
   },
   {
-    slug: "wolverine-pro-10mg",
-    name: "Wolverine",
-    shortDescription: "Advanced recovery blend",
-    description:
-      "Wolverine is a repair-oriented research blend formulated for controlled comparative studies of recovery and connective-tissue pathways.",
-    category: "Repair & Recovery",
-    priceCents: 30000,
-    image: "/products/wolverine-pro-10mg.svg",
-    inventory: 2,
-    featured: true,
-  },
-  {
-    slug: "klow-10mg-50mg",
+    slug: "klow-80mg",
     name: "KLOW",
-    shortDescription: "Multi-compound research blend",
+    shortDescription: "80mg - Multi-compound research blend",
     description:
       "KLOW is a multi-compound research blend prepared for controlled comparative investigations of repair and regeneration pathways.",
     category: "Repair & Recovery",
     priceCents: 35000,
-    image: "/products/klow-10mg-50mg.svg",
+    image: "/products/mockups/klow-80mg.png",
     inventory: 2,
   },
   {
-    slug: "glow-blend",
+    slug: "glow-70mg",
     name: "GLOW",
-    shortDescription: "Multi-compound research blend",
+    shortDescription: "70mg - Multi-compound research blend",
     description:
       "GLOW is a multi-compound research blend prepared for controlled comparative investigations of dermal and connective-tissue pathways.",
     category: "Repair & Recovery",
     priceCents: 32500,
-    image: "/products/glow-blend.svg",
+    image: "/products/mockups/glow-70mg.png",
     inventory: 2,
   },
   {
@@ -109,12 +97,23 @@ const catalog: SeedProduct[] = [
   {
     slug: "glutathione",
     name: "Glutathione",
-    shortDescription: "Antioxidant tripeptide",
+    shortDescription: "1000IU - Antioxidant tripeptide",
     description:
       "Glutathione is an endogenous tripeptide used as a reference compound in oxidative-stress, redox, and cellular-protection research.",
     category: "Repair & Recovery",
     priceCents: 14000,
     image: "/products/mockups/glutathione-1000iu.png",
+    inventory: 1,
+  },
+  {
+    slug: "glutathione-1500iu",
+    name: "Glutathione",
+    shortDescription: "1500IU - Antioxidant tripeptide",
+    description:
+      "A higher-concentration Glutathione reference vial for oxidative-stress, redox, and cellular-protection research.",
+    category: "Repair & Recovery",
+    priceCents: 14000,
+    image: "/products/mockups/glutathione-1500iu.png",
     inventory: 1,
   },
   {
@@ -143,7 +142,7 @@ const catalog: SeedProduct[] = [
   {
     slug: "hcg",
     name: "HCG",
-    shortDescription: "Human Chorionic Gonadotropin",
+    shortDescription: "1000IU - Human Chorionic Gonadotropin",
     description:
       "HCG is a glycoprotein hormone supplied as a reference compound for controlled endocrine and receptor-pathway research.",
     category: "Growth & Metabolic",
@@ -152,20 +151,42 @@ const catalog: SeedProduct[] = [
     inventory: 2,
   },
   {
-    slug: "hgh-150iu",
-    name: "HGH 150",
-    shortDescription: "150 IU - Human Growth Hormone",
+    slug: "hgh-100iu",
+    name: "HGH",
+    shortDescription: "100IU - Human Growth Hormone",
     description:
-      "HGH 150 is a somatotropin reference preparation for controlled growth-hormone and endocrine-pathway research.",
+      "HGH is a somatotropin reference preparation for controlled growth-hormone and endocrine-pathway research.",
     category: "Growth & Metabolic",
     priceCents: 12000,
-    image: "/products/hgh-150iu.svg",
+    image: "/products/mockups/hgh-100iu.png",
+    inventory: 1,
+  },
+  {
+    slug: "hgh-150iu",
+    name: "HGH",
+    shortDescription: "150IU - Human Growth Hormone",
+    description:
+      "HGH is a somatotropin reference preparation for controlled growth-hormone and endocrine-pathway research.",
+    category: "Growth & Metabolic",
+    priceCents: 12000,
+    image: "/products/mockups/hgh-150mg.png",
     inventory: 3,
+  },
+  {
+    slug: "hgh-360iu",
+    name: "HGH",
+    shortDescription: "360IU - Human Growth Hormone",
+    description:
+      "A high-concentration HGH reference preparation for controlled growth-hormone and endocrine-pathway research.",
+    category: "Growth & Metabolic",
+    priceCents: 12000,
+    image: "/products/mockups/hgh-360iu.png",
+    inventory: 1,
   },
   {
     slug: "sermorelin",
     name: "Sermorelin",
-    shortDescription: "GHRH analog",
+    shortDescription: "10mg - GHRH analog",
     description:
       "Sermorelin is a growth-hormone-releasing hormone analog referenced in controlled endocrine and signaling-pathway research.",
     category: "Growth & Metabolic",
@@ -332,7 +353,7 @@ const catalog: SeedProduct[] = [
   {
     slug: "lipo-c-b12",
     name: "Lipo-C + B12",
-    shortDescription: "Lipotropic research blend",
+    shortDescription: "10mL - Lipotropic research blend",
     description:
       "Lipo-C + B12 combines lipotropic reference compounds with vitamin B12 for controlled laboratory and analytical research.",
     category: "Specialty Research",

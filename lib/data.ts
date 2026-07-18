@@ -52,6 +52,18 @@ export async function getProductBySlug(slug: string) {
   return product ?? null;
 }
 
+export async function getActiveProductVariantsByName(name: string) {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("products");
+  const db = getDb();
+  return db
+    .select()
+    .from(products)
+    .where(and(eq(products.active, true), eq(products.name, name)))
+    .orderBy(asc(products.priceCents));
+}
+
 export async function getActiveProductSlugs() {
   "use cache";
   cacheLife("hours");
@@ -89,7 +101,9 @@ export async function getOrdersForUser(userId: string) {
 
 export async function getAllOrders() {
   const db = getDb();
-  return db.select().from(orders).orderBy(desc(orders.createdAt));
+  return db.select()
+  .from(orders)
+  .orderBy(desc(orders.createdAt));
 }
 
 export async function getAllOrdersWithItems() {
