@@ -103,18 +103,30 @@ async function generate(labelFile, bottle) {
 
   const warped = warpLabel(data, info.width, info.height, info.channels);
 
-  await sharp(bottle.data, { raw: bottle.info })
-    .composite([
-      {
-        input: warped,
-        raw: { width: PLATE.width, height: PLATE.height, channels: 3 },
-        left: PLATE.left,
-        top: PLATE.top,
-        blend: "multiply",
-      },
-    ])
-    .png()
-    .toFile(path.join(OUT_DIR, `${name}.png`));
+  const pipeline = sharp(bottle.data, { raw: bottle.info }).composite([
+    {
+      input: warped,
+      raw: { width: PLATE.width, height: PLATE.height, channels: 3 },
+      left: PLATE.left,
+      top: PLATE.top,
+      blend: "multiply",
+    },
+  ]);
+
+  if (bottle.info.channels === 4) {
+    // The multiply composite forces the label rect fully opaque; restore the
+    // bottle's alpha byte-for-byte so the transparent background (and the
+    // semi-transparent glass edges inside the rect) survive untouched.
+    const composited = await pipeline.raw().toBuffer();
+    for (let i = 3; i < composited.length; i += 4) {
+      composited[i] = bottle.data[i];
+    }
+    await sharp(composited, { raw: bottle.info })
+      .png()
+      .toFile(path.join(OUT_DIR, `${name}.png`));
+  } else {
+    await pipeline.png().toFile(path.join(OUT_DIR, `${name}.png`));
+  }
 
   console.log(`✓ ${name}.png`);
 }

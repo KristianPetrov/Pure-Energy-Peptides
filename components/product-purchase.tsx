@@ -29,7 +29,8 @@ export function ProductPurchase({
   return (
     <div className="mt-8 grid gap-12 lg:grid-cols-2">
       <Reveal>
-        <div className="iridescent relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-silver">
+        <div className="product-stage relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-silver">
+          <div className="product-glow" aria-hidden />
           <Image
             key={selected.image}
             src={selected.image}
@@ -37,7 +38,7 @@ export function ProductPurchase({
             width={1024}
             height={1536}
             priority
-            className="h-full w-full object-contain animate-float"
+            className="relative z-[1] h-[88%] w-[88%] object-contain animate-float drop-shadow-[0_22px_36px_rgba(19,28,43,0.2)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
           />
         </div>
       </Reveal>

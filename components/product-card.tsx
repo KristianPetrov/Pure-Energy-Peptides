@@ -29,24 +29,25 @@ export function ProductCard ({ variants }: { variants: ProductVariant[] })
         className="absolute inset-0 z-[1]"
       />
 
-      <div className="iridescent relative flex aspect-[4/5] items-center justify-center sm:aspect-[3/2]">
+      <div className="product-stage relative flex aspect-[4/5] items-center justify-center overflow-hidden sm:aspect-[3/2]">
+        <div className="product-glow" aria-hidden />
         <Image
           key={selected.slug}
           src={selected.image}
           alt={formatProductVariantName(selected)}
           width={320}
           height={400}
-          className="h-full w-full object-contain animate-fade-in transition-transform duration-500 ease-out group-hover:scale-[1.06] group-hover:-rotate-1"
+          className="relative z-[1] h-[92%] w-[92%] object-contain animate-fade-in drop-shadow-[0_18px_28px_rgba(19,28,43,0.18)] transition-transform duration-500 ease-out group-hover:scale-[1.06] group-hover:-rotate-1 dark:drop-shadow-[0_16px_32px_rgba(0,0,0,0.45)]"
         />
-        <WireConnect className="pointer-events-none absolute inset-x-0 bottom-1 h-8 w-full sm:bottom-2 sm:h-12" />
+        <WireConnect className="pointer-events-none absolute inset-x-0 bottom-1 z-[1] h-8 w-full sm:bottom-2 sm:h-12" />
 
         {featured && (
-          <span className="absolute left-2 top-2 rounded-full bg-gradient-to-r from-flame to-flame-deep px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[10px]">
+          <span className="absolute left-2 top-2 z-[2] rounded-full bg-gradient-to-r from-flame to-flame-deep px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[10px]">
             Featured
           </span>
         )}
         {outOfStock && (
-          <span className="absolute right-2 top-2 rounded-full bg-shell/80 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white sm:right-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[10px]">
+          <span className="absolute right-2 top-2 z-[2] rounded-full bg-shell/80 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white sm:right-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[10px]">
             Out of stock
           </span>
         )}

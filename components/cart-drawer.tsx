@@ -55,13 +55,14 @@ export function CartDrawer ()
             <ul className="flex-1 divide-y divide-silver overflow-y-auto px-6">
               {items.map((item) => (
                 <li key={item.slug} className="flex gap-4 py-4">
-                  <div className="iridescent flex h-18 w-18 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-silver p-1.5">
+                  <div className="product-stage relative flex h-18 w-18 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-silver p-1.5">
+                    <div className="product-glow product-glow-sm" aria-hidden />
                     <Image
                       src={item.image}
                       alt={item.name}
                       width={64}
                       height={64}
-                      className="h-full w-full object-contain"
+                      className="relative z-[1] h-full w-full object-contain"
                     />
                   </div>
                   <div className="flex flex-1 flex-col justify-between">

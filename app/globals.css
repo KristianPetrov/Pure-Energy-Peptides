@@ -185,6 +185,73 @@ body {
   background-size: 300% 300%;
 }
 
+/* Product bottle stage: calm themed backdrop + dual brand glow behind
+   transparent PNG mockups. */
+.product-stage {
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 42%, #ffffff 0%, transparent 70%),
+    linear-gradient(165deg, #eef3f8 0%, #e6edf4 40%, #f3efe8 100%);
+}
+
+.dark .product-stage {
+  background:
+    radial-gradient(ellipse 75% 65% at 50% 40%, #1a2740 0%, transparent 68%),
+    linear-gradient(165deg, #0c1424 0%, #101b30 45%, #15120e 100%);
+}
+
+.product-glow {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: 78%;
+  height: 72%;
+  translate: -50% -50%;
+  border-radius: 9999px;
+  background:
+    radial-gradient(
+      ellipse at 38% 42%,
+      color-mix(in srgb, var(--aqua) 42%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse at 62% 58%,
+      color-mix(in srgb, var(--flame) 32%, transparent),
+      transparent 55%
+    );
+  filter: blur(28px);
+  opacity: 0.85;
+  pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.dark .product-glow {
+  background:
+    radial-gradient(
+      ellipse at 38% 42%,
+      color-mix(in srgb, var(--aqua) 55%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 62% 58%,
+      color-mix(in srgb, var(--flame) 40%, transparent),
+      transparent 56%
+    );
+  filter: blur(34px);
+  opacity: 1;
+}
+
+.group:hover .product-glow {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+.product-glow-sm {
+  width: 95%;
+  height: 95%;
+  filter: blur(10px);
+  opacity: 0.75;
+}
+
 .iridescent-border {
   position: relative;
   background:
