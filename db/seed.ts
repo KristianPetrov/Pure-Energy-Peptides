@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
-import { eq, sql } from "drizzle-orm";
+import { eq, notInArray, sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import * as schema from "./schema";
 
@@ -33,9 +33,9 @@ const catalog: SeedProduct[] = [
     description:
       "BPC-157 is a synthetic pentadecapeptide studied extensively in preclinical models for its role in tissue repair, angiogenesis, and gut-lining research. A staple reference compound for recovery and connective-tissue investigations.",
     category: "Repair & Recovery",
-    priceCents: 8500,
-    image: "/products/bpc-157-10mg.svg",
-    inventory: 50,
+    priceCents: 10000,
+    image: "/products/mockups/bpc-157-10mg.png",
+    inventory: 2,
     featured: true,
   },
   {
@@ -45,45 +45,44 @@ const catalog: SeedProduct[] = [
     description:
       "TB-500 is the synthetic analog of the active region of Thymosin Beta-4, a peptide investigated in models of cellular migration, vascularization, and recovery research.",
     category: "Repair & Recovery",
-    priceCents: 6000,
-    image: "/products/tb-500-10mg.svg",
-    inventory: 40,
-    featured: true,
-  },
-  {
-    slug: "bpc-157-10mg-ghk-cu-10mg-tb-500-10mg",
-    name: "BPC-157 / GHK-Cu / TB-500 Blend",
-    shortDescription: "10mg / 10mg / 10mg - Triple Repair Matrix",
-    description:
-      "A research blend combining BPC-157, GHK-Cu, and TB-500 in a single vial for comparative studies of synergistic repair, regeneration, and connective-tissue pathways.",
-    category: "Repair & Recovery",
-    priceCents: 12999,
-    image: "/products/bpc-157-10mg-ghk-cu-10mg-tb-500-10mg.svg",
-    inventory: 25,
+    priceCents: 18000,
+    image: "/products/mockups/tb-500-10mg.png",
+    inventory: 2,
     featured: true,
   },
   {
     slug: "wolverine-pro-10mg",
-    name: "Wolverine Pro Blend",
-    shortDescription: "10mg - Advanced Recovery Stack",
+    name: "Wolverine",
+    shortDescription: "Advanced recovery blend",
     description:
-      "The Wolverine Pro research blend is formulated for advanced regeneration and recovery studies, combining repair-oriented peptides into a single reference vial.",
+      "Wolverine is a repair-oriented research blend formulated for controlled comparative studies of recovery and connective-tissue pathways.",
     category: "Repair & Recovery",
-    priceCents: 15000,
+    priceCents: 30000,
     image: "/products/wolverine-pro-10mg.svg",
-    inventory: 20,
+    inventory: 2,
     featured: true,
   },
   {
     slug: "klow-10mg-50mg",
-    name: "KLOW Blend",
-    shortDescription: "Multi-peptide regeneration blend",
+    name: "KLOW",
+    shortDescription: "Multi-compound research blend",
     description:
-      "KLOW is a multi-peptide research blend used in comparative regeneration and tissue-repair investigations.",
+      "KLOW is a multi-compound research blend prepared for controlled comparative investigations of repair and regeneration pathways.",
     category: "Repair & Recovery",
-    priceCents: 19500,
+    priceCents: 35000,
     image: "/products/klow-10mg-50mg.svg",
-    inventory: 18,
+    inventory: 2,
+  },
+  {
+    slug: "glow-blend",
+    name: "GLOW",
+    shortDescription: "Multi-compound research blend",
+    description:
+      "GLOW is a multi-compound research blend prepared for controlled comparative investigations of dermal and connective-tissue pathways.",
+    category: "Repair & Recovery",
+    priceCents: 32500,
+    image: "/products/glow-blend.svg",
+    inventory: 2,
   },
   {
     slug: "ghk-cu-50mg",
@@ -92,9 +91,31 @@ const catalog: SeedProduct[] = [
     description:
       "GHK-Cu is a naturally occurring copper-binding tripeptide widely referenced in dermal regeneration, collagen remodeling, and anti-inflammatory research.",
     category: "Repair & Recovery",
-    priceCents: 6500,
-    image: "/products/ghk-cu-50mg.svg",
-    inventory: 35,
+    priceCents: 7500,
+    image: "/products/mockups/ghk-cu-50mg.png",
+    inventory: 1,
+  },
+  {
+    slug: "ghk-cu-100mg",
+    name: "GHK-Cu",
+    shortDescription: "100mg - Copper Peptide",
+    description:
+      "A higher-concentration GHK-Cu reference vial for controlled dermal-regeneration and collagen-remodeling research.",
+    category: "Repair & Recovery",
+    priceCents: 10000,
+    image: "/products/mockups/ghk-cu-100mg.png",
+    inventory: 1,
+  },
+  {
+    slug: "glutathione",
+    name: "Glutathione",
+    shortDescription: "Antioxidant tripeptide",
+    description:
+      "Glutathione is an endogenous tripeptide used as a reference compound in oxidative-stress, redox, and cellular-protection research.",
+    category: "Repair & Recovery",
+    priceCents: 14000,
+    image: "/products/mockups/glutathione-1000iu.png",
+    inventory: 1,
   },
   {
     slug: "cjc-1295-10mg-ipamorelin-10mg",
@@ -103,9 +124,9 @@ const catalog: SeedProduct[] = [
     description:
       "A combination of CJC-1295 and Ipamorelin, two growth-hormone secretagogues frequently paired in endocrine and metabolic research models.",
     category: "Growth & Metabolic",
-    priceCents: 10000,
-    image: "/products/cjc-1295-10mg-ipamorelin-10mg.svg",
-    inventory: 30,
+    priceCents: 15000,
+    image: "/products/mockups/cjc-1295-ipa-10mg.png",
+    inventory: 1,
     featured: true,
   },
   {
@@ -115,9 +136,42 @@ const catalog: SeedProduct[] = [
     description:
       "Ipamorelin is a selective growth-hormone secretagogue and ghrelin-receptor agonist studied for its targeted release profile in endocrine research.",
     category: "Growth & Metabolic",
-    priceCents: 5499,
-    image: "/products/ipamorelin-10mg.svg",
-    inventory: 45,
+    priceCents: 10000,
+    image: "/products/mockups/ipamorelin-10mg.png",
+    inventory: 1,
+  },
+  {
+    slug: "hcg",
+    name: "HCG",
+    shortDescription: "Human Chorionic Gonadotropin",
+    description:
+      "HCG is a glycoprotein hormone supplied as a reference compound for controlled endocrine and receptor-pathway research.",
+    category: "Growth & Metabolic",
+    priceCents: 20000,
+    image: "/products/mockups/hcg-1000iu.png",
+    inventory: 2,
+  },
+  {
+    slug: "hgh-150iu",
+    name: "HGH 150",
+    shortDescription: "150 IU - Human Growth Hormone",
+    description:
+      "HGH 150 is a somatotropin reference preparation for controlled growth-hormone and endocrine-pathway research.",
+    category: "Growth & Metabolic",
+    priceCents: 12000,
+    image: "/products/hgh-150iu.svg",
+    inventory: 3,
+  },
+  {
+    slug: "sermorelin",
+    name: "Sermorelin",
+    shortDescription: "GHRH analog",
+    description:
+      "Sermorelin is a growth-hormone-releasing hormone analog referenced in controlled endocrine and signaling-pathway research.",
+    category: "Growth & Metabolic",
+    priceCents: 20000,
+    image: "/products/mockups/sermorelin-10mg.png",
+    inventory: 1,
   },
   {
     slug: "tesamorelin-10mg",
@@ -126,9 +180,9 @@ const catalog: SeedProduct[] = [
     description:
       "Tesamorelin is a stabilized growth-hormone-releasing hormone (GHRH) analog referenced in metabolic and adipose-tissue research.",
     category: "Growth & Metabolic",
-    priceCents: 10000,
-    image: "/products/tesamorelin-10mg.svg",
-    inventory: 28,
+    priceCents: 22500,
+    image: "/products/mockups/tesamorelin-10mg.png",
+    inventory: 1,
   },
   {
     slug: "tesamorelin-20mg",
@@ -137,31 +191,9 @@ const catalog: SeedProduct[] = [
     description:
       "A higher-concentration vial of Tesamorelin, a stabilized GHRH analog used in metabolic and adipose-tissue research.",
     category: "Growth & Metabolic",
-    priceCents: 14000,
-    image: "/products/tesamorelin-20mg.svg",
-    inventory: 20,
-  },
-  {
-    slug: "aod-9604-10mg",
-    name: "AOD-9604",
-    shortDescription: "10mg - Modified GH Fragment",
-    description:
-      "AOD-9604 is a modified fragment of human growth hormone (176-191) studied in lipid metabolism and adipose-tissue research models.",
-    category: "Growth & Metabolic",
-    priceCents: 6999,
-    image: "/products/aod-9604-10mg.svg",
-    inventory: 30,
-  },
-  {
-    slug: "aicar-50mg",
-    name: "AICAR",
-    shortDescription: "50mg - AMPK Activator",
-    description:
-      "AICAR is an AMP-activated protein kinase (AMPK) activator referenced in cellular energy metabolism and endurance research.",
-    category: "Growth & Metabolic",
-    priceCents: 14000,
-    image: "/products/aicar-50mg.svg",
-    inventory: 22,
+    priceCents: 40000,
+    image: "/products/mockups/tesamorelin-20mg.png",
+    inventory: 1,
   },
   {
     slug: "rt-3-10mg",
@@ -171,8 +203,8 @@ const catalog: SeedProduct[] = [
       "Retatrutide is a triple-agonist peptide (GIP/GLP-1/glucagon) under active investigation in metabolic and weight-regulation research.",
     category: "Growth & Metabolic",
     priceCents: 15000,
-    image: "/products/rt-3-10mg.svg",
-    inventory: 25,
+    image: "/products/mockups/retatrutide-10mg.png",
+    inventory: 2,
     featured: true,
   },
   {
@@ -182,9 +214,9 @@ const catalog: SeedProduct[] = [
     description:
       "A higher-concentration vial of Retatrutide, a triple-agonist peptide (GIP/GLP-1/glucagon) studied in metabolic research.",
     category: "Growth & Metabolic",
-    priceCents: 20000,
-    image: "/products/rt-3-20mg.svg",
-    inventory: 18,
+    priceCents: 30000,
+    image: "/products/mockups/retatrutide-20mg.png",
+    inventory: 1,
   },
   {
     slug: "rt-3-30mg",
@@ -193,9 +225,42 @@ const catalog: SeedProduct[] = [
     description:
       "The highest-concentration Retatrutide vial in the catalog, intended for extended metabolic research protocols.",
     category: "Growth & Metabolic",
-    priceCents: 25000,
-    image: "/products/rt-3-30mg.svg",
-    inventory: 15,
+    priceCents: 40000,
+    image: "/products/mockups/retatrutide-30mg.png",
+    inventory: 3,
+  },
+  {
+    slug: "tirzepatide-10mg",
+    name: "Tirzepatide",
+    shortDescription: "10mg - Dual-Agonist (Research)",
+    description:
+      "Tirzepatide is a dual GIP/GLP-1 receptor agonist referenced in controlled metabolic and signaling-pathway research.",
+    category: "Growth & Metabolic",
+    priceCents: 12000,
+    image: "/products/mockups/tirzepatide-10mg.png",
+    inventory: 1,
+  },
+  {
+    slug: "tirzepatide-20mg",
+    name: "Tirzepatide",
+    shortDescription: "20mg - Dual-Agonist (Research)",
+    description:
+      "A higher-concentration Tirzepatide reference vial for controlled metabolic and receptor-signaling research.",
+    category: "Growth & Metabolic",
+    priceCents: 15000,
+    image: "/products/mockups/tirzepatide-20mg.png",
+    inventory: 1,
+  },
+  {
+    slug: "tirzepatide-30mg",
+    name: "Tirzepatide",
+    shortDescription: "30mg - Dual-Agonist (Research)",
+    description:
+      "A high-concentration Tirzepatide reference vial for extended metabolic and receptor-signaling research protocols.",
+    category: "Growth & Metabolic",
+    priceCents: 18000,
+    image: "/products/mockups/tirzepatide-30mg.png",
+    inventory: 1,
   },
   {
     slug: "mots-c-10mg",
@@ -204,9 +269,9 @@ const catalog: SeedProduct[] = [
     description:
       "MOTS-c is a mitochondrial-derived peptide studied for its role in metabolic regulation, insulin sensitivity, and cellular energy research.",
     category: "Longevity & Mitochondrial",
-    priceCents: 6500,
-    image: "/products/mots-c-10mg.svg",
-    inventory: 30,
+    priceCents: 10000,
+    image: "/products/mockups/mots-c-10mg.png",
+    inventory: 1,
   },
   {
     slug: "mots-c-40mg",
@@ -215,9 +280,21 @@ const catalog: SeedProduct[] = [
     description:
       "A high-concentration MOTS-c vial for extended mitochondrial and metabolic research protocols.",
     category: "Longevity & Mitochondrial",
-    priceCents: 13000,
-    image: "/products/mots-c-40mg.svg",
-    inventory: 16,
+    priceCents: 30000,
+    image: "/products/mockups/mots-c-40mg.png",
+    inventory: 1,
+  },
+  {
+    slug: "nad-500mg",
+    name: "NAD+",
+    shortDescription: "500mg - Cellular Coenzyme",
+    description:
+      "NAD+ is an essential coenzyme central to cellular metabolism, DNA repair, and longevity research at the mitochondrial level.",
+    category: "Longevity & Mitochondrial",
+    priceCents: 14000,
+    image: "/products/mockups/nad-500mg.png",
+    inventory: 1,
+    featured: true,
   },
   {
     slug: "ss-31-10mg",
@@ -226,21 +303,9 @@ const catalog: SeedProduct[] = [
     description:
       "SS-31 is a mitochondria-targeted tetrapeptide referenced in research on cardiolipin stabilization and cellular energy production.",
     category: "Longevity & Mitochondrial",
-    priceCents: 7500,
-    image: "/products/ss-31-10mg.svg",
-    inventory: 20,
-  },
-  {
-    slug: "nad-1000mg",
-    name: "NAD+",
-    shortDescription: "1000mg - Cellular Coenzyme",
-    description:
-      "NAD+ is an essential coenzyme central to cellular metabolism, DNA repair, and longevity research at the mitochondrial level.",
-    category: "Longevity & Mitochondrial",
-    priceCents: 22500,
-    image: "/products/nad-1000mg.svg",
-    inventory: 24,
-    featured: true,
+    priceCents: 15000,
+    image: "/products/mockups/ss-31-10mg.png",
+    inventory: 1,
   },
   {
     slug: "semax-10mg",
@@ -249,9 +314,9 @@ const catalog: SeedProduct[] = [
     description:
       "Semax is a synthetic peptide derived from ACTH(4-10), studied for its influence on BDNF expression and cognitive research models.",
     category: "Cognitive & Nootropic",
-    priceCents: 12500,
-    image: "/products/semax-10mg.svg",
-    inventory: 28,
+    priceCents: 13000,
+    image: "/products/mockups/semax-10mg.png",
+    inventory: 1,
   },
   {
     slug: "selank-10mg",
@@ -260,24 +325,24 @@ const catalog: SeedProduct[] = [
     description:
       "Selank is a synthetic analog of the immunomodulatory peptide tuftsin, referenced in anxiolytic and neuroregulatory research.",
     category: "Cognitive & Nootropic",
-    priceCents: 12500,
-    image: "/products/selank-10mg.svg",
-    inventory: 28,
+    priceCents: 13000,
+    image: "/products/mockups/selank-10mg.png",
+    inventory: 1,
   },
   {
-    slug: "mt-2-10mg",
-    name: "Melanotan II",
-    shortDescription: "10mg - Melanocortin Agonist",
+    slug: "lipo-c-b12",
+    name: "Lipo-C + B12",
+    shortDescription: "Lipotropic research blend",
     description:
-      "Melanotan II is a synthetic analog of alpha-melanocyte-stimulating hormone studied in melanocortin-receptor and pigmentation research.",
+      "Lipo-C + B12 combines lipotropic reference compounds with vitamin B12 for controlled laboratory and analytical research.",
     category: "Specialty Research",
-    priceCents: 5499,
-    image: "/products/mt-2-10mg.svg",
-    inventory: 32,
+    priceCents: 13000,
+    image: "/products/mockups/lipo-c-b12-10ml.png",
+    inventory: 1,
   },
 ];
 
-async function seedProducts() {
+async function seedProducts(resetInventory: boolean) {
   for (const item of catalog) {
     await db
       .insert(schema.products)
@@ -304,10 +369,24 @@ async function seedProducts() {
           priceCents: item.priceCents,
           image: item.image,
           featured: item.featured ?? false,
+          ...(resetInventory
+            ? { inventory: item.inventory, active: true }
+            : {}),
         },
       });
   }
-  console.log(`Seeded ${catalog.length} products.`);
+
+  const catalogSlugs = catalog.map((item) => item.slug);
+  await db
+    .update(schema.products)
+    .set({ active: false })
+    .where(notInArray(schema.products.slug, catalogSlugs));
+
+  console.log(
+    `Seeded ${catalog.length} products${
+      resetInventory ? " with shipment inventory" : ""
+    } and retired older listings.`
+  );
 }
 
 async function seedAdmin() {
@@ -348,8 +427,10 @@ async function seedAdmin() {
 }
 
 async function main() {
-  await seedProducts();
-  await seedAdmin();
+  const resetInventory = process.argv.includes("--reset-inventory");
+  const productsOnly = process.argv.includes("--products-only");
+  await seedProducts(resetInventory);
+  if (!productsOnly) await seedAdmin();
 }
 
 main()

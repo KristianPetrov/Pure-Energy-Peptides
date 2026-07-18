@@ -63,11 +63,11 @@ export default async function StorePage() {
               <div className="h-px flex-1 bg-gradient-to-r from-silver to-transparent" />
             </div>
           </Reveal>
-          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-7 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
             {products
               .filter((product) => product.category === category)
               .map((product, index) => (
-                <Reveal key={product.id} delay={(index % 3) * 80}>
+                <Reveal key={product.id} className="h-full" delay={(index % 3) * 80}>
                   <ProductCard product={product} />
                 </Reveal>
               ))}

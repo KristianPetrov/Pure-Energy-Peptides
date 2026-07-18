@@ -22,8 +22,8 @@
       <stop offset="100%" stop-color="#009d9d"/>
     </linearGradient>
     <linearGradient id="liquid" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#00c7c7" stop-opacity="0.26"/>
-      <stop offset="100%" stop-color="#009d9d" stop-opacity="0.42"/>
+      <stop offset="0%" stop-color="#ff9a3d" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#ff7a00" stop-opacity="0.42"/>
     </linearGradient>
     <linearGradient id="infinity" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#9aa4b5"/>
@@ -71,10 +71,10 @@
 
   <!-- product pill -->
   <rect x="106" y="163" width="88" height="21" rx="6" fill="url(#pill)"/>
-  <text x="150" y="177.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" textLength="77.22" lengthAdjust="spacingAndGlyphs">WOLVERINE</text>
+  <text x="150" y="177.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" textLength="60.06" lengthAdjust="spacingAndGlyphs">HGH 150</text>
 
   <!-- strength + purity -->
-  <text x="150" y="199" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#3d4657">BLEND</text>
+  <text x="150" y="199" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#3d4657">150 IU</text>
   <text x="150" y="211" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#8d95a6">99% Purity</text>
   <text x="150" y="220" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="7.5" letter-spacing="0.4" fill="#8d95a6">RESEARCH USE ONLY</text>
 </svg>

@@ -256,6 +256,142 @@ body {
     0 4px 12px -6px rgba(16, 207, 207, 0.18);
 }
 
+/* Electric wire-connect on product cards (components/wire-connect.tsx):
+   two disconnected leads slide together on card hover — or, on touch
+   devices, while the card crosses the middle of the viewport (`.wire-live`,
+   toggled by an IntersectionObserver) — spark at the contact point, then
+   current flows along the joined wire. */
+.wire-conn .wire-half {
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wire-conn .wire-lead {
+  stroke: var(--slate);
+  opacity: 0.4;
+  transition:
+    opacity 0.3s ease,
+    stroke 0.3s ease;
+}
+
+.wire-conn .wire-tip {
+  fill: var(--faint);
+  transition: fill 0.3s ease;
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+.wire-conn .wire-tip-core {
+  fill: #ffffff;
+  opacity: 0.7;
+}
+
+.group:hover .wire-conn .wire-half-l,
+.wire-conn.wire-live .wire-half-l {
+  transform: translateX(30px);
+}
+
+.group:hover .wire-conn .wire-half-r,
+.wire-conn.wire-live .wire-half-r {
+  transform: translateX(-30px);
+}
+
+.group:hover .wire-conn .wire-lead,
+.wire-conn.wire-live .wire-lead {
+  opacity: 0.75;
+  stroke: var(--aqua-deep);
+}
+
+.group:hover .wire-conn .wire-tip,
+.wire-conn.wire-live .wire-tip {
+  fill: var(--aqua);
+  animation: none;
+}
+
+.wire-conn .wire-current {
+  opacity: 0;
+  stroke-dasharray: 12 20;
+  filter: drop-shadow(0 0 3px rgba(0, 199, 199, 0.65));
+  transition: opacity 0.2s ease;
+}
+
+.group:hover .wire-conn .wire-current,
+.wire-conn.wire-live .wire-current {
+  opacity: 1;
+  transition-delay: 0.34s;
+  animation: current-flow 0.9s linear infinite;
+}
+
+@keyframes current-flow {
+  to {
+    stroke-dashoffset: -64;
+  }
+}
+
+.wire-conn .wire-spark {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.wire-conn .wire-spark-glow {
+  fill: rgba(0, 199, 199, 0.5);
+}
+
+.wire-conn .wire-spark line {
+  stroke: var(--flame);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.group:hover .wire-conn .wire-spark,
+.wire-conn.wire-live .wire-spark {
+  animation: spark-burst 0.5s ease-out 0.26s both;
+}
+
+@keyframes spark-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+.wire-conn .wire-pulse {
+  fill: #ffffff;
+  opacity: 0;
+  offset-path: path("M -8 12 C 70 12, 148 34, 200 34 C 252 34, 330 12, 408 12");
+  filter: drop-shadow(0 0 4px var(--aqua))
+    drop-shadow(0 0 8px rgba(255, 122, 0, 0.5));
+}
+
+.group:hover .wire-conn .wire-pulse,
+.wire-conn.wire-live .wire-pulse {
+  animation: wire-pulse-travel 1.3s linear 0.5s infinite;
+}
+
+@keyframes wire-pulse-travel {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
 /* Scroll reveal (driven by IntersectionObserver in components/reveal.tsx) */
 .reveal {
   opacity: 0;
