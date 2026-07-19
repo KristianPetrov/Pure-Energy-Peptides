@@ -3,7 +3,6 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { logout } from "@/app/actions/auth";
 import { LogoMark, LogoWordmark } from "./logo";
-import { CartButton } from "./cart-button";
 import { MobileMenu } from "./mobile-menu";
 import { StickyHeader } from "./sticky-header";
 import { ThemeToggle } from "./theme-toggle";
@@ -112,7 +111,6 @@ export function SiteHeader ()
               </Suspense>
             </div>
             <ThemeToggle />
-            <CartButton />
             <Suspense fallback={<MobileMenuFallback />}>
               <SessionMobileMenu />
             </Suspense>

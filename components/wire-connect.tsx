@@ -3,15 +3,42 @@
 import { useEffect, useId, useRef } from "react";
 
 /**
- * Two disconnected wire leads reaching toward each other. When the card is
- * hovered (or, on touch devices, scrolled through the middle of the
- * viewport), the leads slide together, a spark bursts at the contact point,
- * and current flows along the joined wire as an animated aqua-to-flame dash
- * with a traveling pulse. All motion lives in globals.css keyed off the
- * parent `.group:hover` and the `.wire-live` class set here.
+ * A circuit-board field behind each product. On hover—or while centered in
+ * the viewport on touch devices—the traces power inward, illuminate their
+ * nodes, and send repeating current pulses toward the central processor.
  */
 
-const SPARK_ANGLES = [0, 60, 120, 180, 240, 300];
+const CIRCUIT_PATHS = [
+  "M -8 38 H62 V66 H118 V102 H184",
+  "M -8 126 H48 V108 H102 V132 H184",
+  "M -8 222 H70 V192 H124 V158 H184",
+  "M 408 38 H338 V66 H282 V102 H216",
+  "M 408 126 H352 V108 H298 V132 H216",
+  "M 408 222 H330 V192 H276 V158 H216",
+  "M 76 -8 V30 H142 V78 H184",
+  "M 324 -8 V30 H258 V78 H216",
+  "M 92 268 V228 H146 V180 H184",
+  "M 308 268 V228 H254 V180 H216",
+];
+
+const CIRCUIT_NODES = [
+  [62, 38],
+  [118, 66],
+  [48, 126],
+  [102, 108],
+  [70, 222],
+  [124, 192],
+  [338, 38],
+  [282, 66],
+  [352, 126],
+  [298, 108],
+  [330, 222],
+  [276, 192],
+  [142, 30],
+  [258, 30],
+  [146, 228],
+  [254, 228],
+] as const;
 
 export function WireConnect({ className = "" }: { className?: string }) {
   const ref = useRef<SVGSVGElement>(null);
@@ -22,8 +49,8 @@ export function WireConnect({ className = "" }: { className?: string }) {
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-    // Pointer devices animate via :hover; touch devices connect the wires
-    // while the card sits in the middle band of the viewport.
+    // Pointer devices animate via :hover; touch devices power the circuit
+    // while the product stage sits in the middle band of the viewport.
     if (window.matchMedia("(hover: hover)").matches) return;
     const observer = new IntersectionObserver(
       (entries) => {
@@ -41,7 +68,7 @@ export function WireConnect({ className = "" }: { className?: string }) {
     <svg
       ref={ref}
       className={`wire-conn ${className}`}
-      viewBox="0 0 400 48"
+      viewBox="0 0 400 260"
       preserveAspectRatio="none"
       fill="none"
       aria-hidden="true"
@@ -61,60 +88,64 @@ export function WireConnect({ className = "" }: { className?: string }) {
         </linearGradient>
       </defs>
 
-      {/* Live current along the joined wire (connected geometry). */}
       <path
-        className="wire-current"
-        d="M -8 12 C 70 12, 148 34, 200 34 C 252 34, 330 12, 408 12"
-        stroke={`url(#${gradientId})`}
-        strokeWidth="2.5"
-        strokeLinecap="round"
+        className="circuit-grid"
+        d="M0 32H400 M0 82H400 M0 130H400 M0 180H400 M0 230H400 M42 0V260 M98 0V260 M154 0V260 M200 0V260 M246 0V260 M302 0V260 M358 0V260"
       />
 
-      <g className="wire-half wire-half-l">
+      <g className="circuit-base">
+        {CIRCUIT_PATHS.map((path) => (
+          <path key={path} d={path} />
+        ))}
+        {CIRCUIT_NODES.map(([cx, cy]) => (
+          <circle key={`${cx}-${cy}`} className="circuit-node" cx={cx} cy={cy} r="3" />
+        ))}
+      </g>
+
+      <g className="circuit-charge" stroke={`url(#${gradientId})`}>
+        {CIRCUIT_PATHS.map((path, index) => (
+          <path
+            key={path}
+            d={path}
+            pathLength="1"
+            style={{ animationDelay: `${0.08 + index * 0.055}s` }}
+          />
+        ))}
+      </g>
+
+      <g className="circuit-current" stroke={`url(#${gradientId})`}>
+        {CIRCUIT_PATHS.map((path, index) => (
+          <path
+            key={path}
+            d={path}
+            pathLength="1"
+            style={{ animationDelay: `${0.9 + index * 0.075}s` }}
+          />
+        ))}
+      </g>
+
+      <g className="circuit-nodes-live">
+        {CIRCUIT_NODES.map(([cx, cy], index) => (
+          <circle
+            key={`${cx}-${cy}`}
+            cx={cx}
+            cy={cy}
+            r="4"
+            style={{ animationDelay: `${0.36 + index * 0.035}s` }}
+          />
+        ))}
+      </g>
+
+      <g className="circuit-hub">
         <path
-          className="wire-lead"
-          d="M -38 12 C 40 12, 118 34, 170 34"
-          strokeWidth="2.5"
-          strokeLinecap="round"
+          className="circuit-pins"
+          d="M174 108H162 M174 122H158 M174 138H158 M174 152H162 M226 108H238 M226 122H242 M226 138H242 M226 152H238"
         />
-        <circle className="wire-tip" cx="170" cy="34" r="3.5" />
-        <circle className="wire-tip-core" cx="170" cy="34" r="1.4" />
+        <rect className="circuit-chip" x="174" y="96" width="52" height="68" rx="8" />
+        <rect className="circuit-chip-inner" x="183" y="106" width="34" height="48" rx="5" />
+        <circle className="circuit-core-ring" cx="200" cy="130" r="12" />
+        <circle className="circuit-core" cx="200" cy="130" r="4" />
       </g>
-
-      <g className="wire-half wire-half-r">
-        <path
-          className="wire-lead"
-          d="M 438 12 C 360 12, 282 34, 230 34"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-        <circle className="wire-tip" cx="230" cy="34" r="3.5" />
-        <circle className="wire-tip-core" cx="230" cy="34" r="1.4" />
-      </g>
-
-      {/* Spark burst at the contact point. */}
-      <g transform="translate(200 34)">
-        <g className="wire-spark">
-          <circle className="wire-spark-glow" r="5" />
-          {SPARK_ANGLES.map((deg) => {
-            const rad = (deg * Math.PI) / 180;
-            const cos = Math.cos(rad);
-            const sin = Math.sin(rad);
-            return (
-              <line
-                key={deg}
-                x1={(4.5 * cos).toFixed(2)}
-                y1={(4.5 * sin).toFixed(2)}
-                x2={(10 * cos).toFixed(2)}
-                y2={(10 * sin).toFixed(2)}
-              />
-            );
-          })}
-        </g>
-      </g>
-
-      {/* Bright pulse traveling the connected wire (offset-path in CSS). */}
-      <circle className="wire-pulse" r="2.6" />
     </svg>
   );
 }
