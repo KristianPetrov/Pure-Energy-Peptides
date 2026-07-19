@@ -189,67 +189,87 @@ body {
    transparent PNG mockups. */
 .product-stage {
   background:
-    radial-gradient(ellipse 80% 70% at 50% 42%, #ffffff 0%, transparent 70%),
-    linear-gradient(165deg, #eef3f8 0%, #e6edf4 40%, #f3efe8 100%);
+    radial-gradient(
+      ellipse 90% 80% at 50% 45%,
+      color-mix(in srgb, var(--aqua-soft) 70%, #dfe8f0) 0%,
+      transparent 72%
+    ),
+    linear-gradient(
+      160deg,
+      #d8e4ee 0%,
+      #e3ebf2 35%,
+      #ebe4da 100%
+    );
 }
 
 .dark .product-stage {
   background:
-    radial-gradient(ellipse 75% 65% at 50% 40%, #1a2740 0%, transparent 68%),
-    linear-gradient(165deg, #0c1424 0%, #101b30 45%, #15120e 100%);
+    radial-gradient(
+      ellipse 85% 75% at 50% 42%,
+      color-mix(in srgb, var(--aqua-soft) 55%, #152238) 0%,
+      transparent 70%
+    ),
+    linear-gradient(
+      160deg,
+      #070d18 0%,
+      #0c1526 40%,
+      #16110c 100%
+    );
 }
 
 .product-glow {
   position: absolute;
   left: 50%;
-  top: 48%;
-  width: 78%;
-  height: 72%;
+  top: 46%;
+  width: 85%;
+  height: 78%;
   translate: -50% -50%;
   border-radius: 9999px;
   background:
     radial-gradient(
-      ellipse at 38% 42%,
-      color-mix(in srgb, var(--aqua) 42%, transparent),
-      transparent 58%
+      ellipse at 35% 40%,
+      color-mix(in srgb, var(--aqua) 55%, transparent),
+      transparent 62%
     ),
     radial-gradient(
-      ellipse at 62% 58%,
-      color-mix(in srgb, var(--flame) 32%, transparent),
-      transparent 55%
+      ellipse at 65% 60%,
+      color-mix(in srgb, var(--flame) 45%, transparent),
+      transparent 58%
     );
-  filter: blur(28px);
-  opacity: 0.85;
+  filter: blur(32px);
+  opacity: 0.95;
   pointer-events: none;
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
 }
 
 .dark .product-glow {
   background:
     radial-gradient(
-      ellipse at 38% 42%,
-      color-mix(in srgb, var(--aqua) 55%, transparent),
-      transparent 60%
+      ellipse at 35% 40%,
+      color-mix(in srgb, var(--aqua) 70%, transparent),
+      transparent 62%
     ),
     radial-gradient(
-      ellipse at 62% 58%,
-      color-mix(in srgb, var(--flame) 40%, transparent),
-      transparent 56%
+      ellipse at 65% 60%,
+      color-mix(in srgb, var(--flame) 55%, transparent),
+      transparent 58%
     );
-  filter: blur(34px);
+  filter: blur(36px);
   opacity: 1;
 }
 
 .group:hover .product-glow {
   opacity: 1;
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 
 .product-glow-sm {
   width: 95%;
   height: 95%;
   filter: blur(10px);
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .iridescent-border {

@@ -4,7 +4,9 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   poweredByHeader: false,
   images: {
-    formats: ["image/avif", "image/webp"],
+    // AVIF encoding currently flattens PNG alpha to opaque white via the
+    // image optimizer; WebP keeps transparency for product mockups.
+    formats: ["image/webp"],
   },
 };
 
