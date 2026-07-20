@@ -65,6 +65,44 @@ export function ProductCard ({ variants }: { variants: ProductVariant[] })
             Out of stock
           </span>
         )}
+        {(variants.length > 1 || dosage) && (
+          <div className="absolute inset-x-0 bottom-0 z-[2] bg-gradient-to-t from-card/90 via-card/55 to-transparent px-2 pb-2 pt-8 sm:px-3 sm:pb-3">
+            {variants.length > 1 ? (
+              <div
+                role="group"
+                aria-label={`${selected.name} dosage options`}
+                className="relative flex flex-wrap justify-center gap-1 sm:gap-1.5"
+              >
+                {variants.map((variant) => {
+                  const active = variant.slug === selected.slug;
+                  const variantOut = variant.inventory <= 0;
+                  return (
+                    <button
+                      key={variant.slug}
+                      type="button"
+                      onClick={() => setSelected(variant)}
+                      aria-pressed={active}
+                      title={variantOut ? "Out of stock" : undefined}
+                      className={`rounded-full border px-2 py-0.5 text-[12px] font-extrabold shadow-sm backdrop-blur-sm transition-all sm:px-2.5 sm:py-1 sm:text-sm ${
+                        active
+                          ? "border-aqua bg-aqua text-shell"
+                          : "border-silver/80 bg-card/90 text-slate-ui hover:border-aqua hover:text-aqua-deep"
+                      } ${variantOut && !active ? "opacity-50" : ""}`}
+                    >
+                      {getProductDosage(variant)}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex justify-center">
+                <span className="rounded-full border border-silver/80 bg-card/90 px-2 py-0.5 text-[10px] font-extrabold text-slate-ui shadow-sm backdrop-blur-sm sm:px-2.5 sm:py-1 sm:text-xs">
+                  {dosage}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col gap-1 p-3 sm:p-5">
@@ -84,46 +122,11 @@ export function ProductCard ({ variants }: { variants: ProductVariant[] })
         </p>
 
         <div className="mt-auto pt-2 sm:pt-3">
-          {variants.length > 1 ? (
-            <div
-              role="group"
-              aria-label={`${selected.name} dosage options`}
-              className="relative z-[2] flex flex-wrap gap-1 sm:gap-1.5"
-            >
-              {variants.map((variant) => {
-                const active = variant.slug === selected.slug;
-                const variantOut = variant.inventory <= 0;
-                return (
-                  <button
-                    key={variant.slug}
-                    type="button"
-                    onClick={() => setSelected(variant)}
-                    aria-pressed={active}
-                    title={variantOut ? "Out of stock" : undefined}
-                    className={`rounded-full border px-2 py-0.5 text-[10px] font-bold transition-all sm:px-2.5 sm:py-1 sm:text-xs ${
-                      active
-                        ? "border-aqua bg-aqua text-shell shadow-sm"
-                        : "border-silver bg-card text-slate-ui hover:border-aqua hover:text-aqua-deep"
-                    } ${variantOut && !active ? "opacity-50" : ""}`}
-                  >
-                    {getProductDosage(variant)}
-                  </button>
-                );
-              })}
-            </div>
-          ) : (
-            dosage && (
-              <span className="inline-flex rounded-full border border-silver bg-frost px-2 py-0.5 text-[10px] font-bold text-slate-ui sm:px-2.5 sm:py-1 sm:text-xs">
-                {dosage}
-              </span>
-            )
-          )}
-
           <button
             type="button"
             onClick={addSelectedToCart}
             disabled={outOfStock}
-            className="relative z-[2] mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-aqua-deep to-aqua px-3 py-2 text-[11px] font-bold text-white shadow-sm transition-all hover:scale-[1.02] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aqua disabled:cursor-not-allowed disabled:from-faint disabled:to-faint disabled:opacity-60 disabled:hover:scale-100 sm:mt-3 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
+            className="relative z-[2] inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-aqua-deep to-aqua px-3 py-2 text-[11px] font-bold text-white shadow-sm transition-all hover:scale-[1.02] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aqua disabled:cursor-not-allowed disabled:from-faint disabled:to-faint disabled:opacity-60 disabled:hover:scale-100 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
             aria-label={
               outOfStock
                 ? `${formatProductVariantName(selected)} is out of stock`
