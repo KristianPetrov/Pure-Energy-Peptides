@@ -15,9 +15,11 @@ export default function robots(): MetadataRoute.Robots {
           "/order/",
           "/verify-email",
           "/reset-password",
+          "/mockup-compare",
         ],
       },
     ],
     sitemap: `${getSiteUrl()}/sitemap.xml`,
+    host: getSiteUrl(),
   };
 }

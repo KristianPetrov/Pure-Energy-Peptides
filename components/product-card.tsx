@@ -46,13 +46,17 @@ export function ProductCard ({ variants }: { variants: ProductVariant[] })
 
       <div className="product-stage relative flex aspect-[4/5] items-center justify-center overflow-hidden sm:aspect-[3/2]">
         <div className="product-glow" aria-hidden />
-        <WireConnect className="pointer-events-none absolute inset-0 z-0 h-full w-full" />
+        <WireConnect
+          id={variants[0].slug}
+          className="pointer-events-none absolute inset-0 z-0 h-full w-full"
+        />
         <Image
           key={selected.slug}
           src={selected.image}
           alt={formatProductVariantName(selected)}
           width={320}
           height={400}
+          sizes="(max-width: 639px) 50vw, (max-width: 1023px) 50vw, 33vw"
           className="relative z-[1] h-[92%] w-[92%] object-contain animate-fade-in drop-shadow-[0_18px_28px_rgba(19,28,43,0.18)] transition-transform duration-500 ease-out group-hover:scale-[1.06] group-hover:-rotate-1 dark:drop-shadow-[0_16px_32px_rgba(0,0,0,0.45)]"
         />
         {featured && (

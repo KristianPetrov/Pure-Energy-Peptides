@@ -122,16 +122,6 @@
   }
 }
 
-@keyframes iridesce {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
 body {
   background: var(--canvas);
   color: var(--ink);
@@ -149,8 +139,6 @@ body {
     #eef1f7 72%,
     #f5f7fb 100%
   );
-  background-size: 300% 300%;
-  animation: iridesce 14s ease-in-out infinite;
 }
 
 /* Iridescent dark surface: ink base with faint orange/teal hue drift, for
@@ -165,8 +153,6 @@ body {
     #101828 72%,
     #0e1524 100%
   );
-  background-size: 300% 300%;
-  animation: iridesce 14s ease-in-out infinite;
 }
 
 /* Dark counterpart of .iridescent: raised navy with the same faint
@@ -182,7 +168,83 @@ body {
     #121a2d 72%,
     #101828 100%
   );
-  background-size: 300% 300%;
+}
+
+/* Server-rendered hero atmosphere. Only transform and opacity animate, so the
+   browser can composite it without running a canvas loop on the main thread. */
+.energy-flow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  contain: strict;
+  background:
+    radial-gradient(circle at 50% 24%, color-mix(in srgb, var(--aqua) 12%, transparent), transparent 34%),
+    radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--flame) 10%, transparent), transparent 44%),
+    radial-gradient(circle, color-mix(in srgb, var(--faint) 24%, transparent) 1px, transparent 1.5px);
+  background-size: auto, auto, 46px 46px;
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.78) 58%, transparent 100%);
+}
+
+.energy-orb,
+.energy-rings {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+.energy-orb {
+  width: min(72vw, 720px);
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  opacity: 0.24;
+  will-change: transform, opacity;
+}
+
+.energy-orb-aqua {
+  background: radial-gradient(circle at 32% 44%, var(--aqua), transparent 58%);
+  animation: energy-drift-aqua 14s ease-in-out infinite alternate;
+}
+
+.energy-orb-flame {
+  background: radial-gradient(circle at 68% 56%, var(--flame), transparent 58%);
+  animation: energy-drift-flame 17s ease-in-out infinite alternate;
+}
+
+.energy-rings {
+  width: min(52vw, 480px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--aqua) 22%, transparent);
+  border-radius: 9999px;
+  box-shadow:
+    0 0 0 48px color-mix(in srgb, var(--flame) 3%, transparent),
+    0 0 0 96px color-mix(in srgb, var(--aqua) 3%, transparent);
+  opacity: 0.7;
+  animation: energy-breathe 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes energy-drift-aqua {
+  from { transform: translate3d(-5%, -2%, 0) scale(0.94); }
+  to { transform: translate3d(5%, 3%, 0) scale(1.04); }
+}
+
+@keyframes energy-drift-flame {
+  from { transform: translate3d(4%, 3%, 0) scale(1.04); }
+  to { transform: translate3d(-4%, -3%, 0) scale(0.95); }
+}
+
+@keyframes energy-breathe {
+  0%, 100% { transform: scale(0.96); opacity: 0.48; }
+  50% { transform: scale(1.04); opacity: 0.76; }
+}
+
+/* Skip layout and paint work for substantial below-the-fold sections while
+   retaining a stable intrinsic placeholder to prevent layout shift. */
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
 }
 
 /* Product bottle stage: calm themed backdrop + dual brand glow behind
@@ -582,19 +644,32 @@ body {
   }
 }
 
-/* Scroll reveal (driven by IntersectionObserver in components/reveal.tsx) */
+/* Progressive CSS scroll reveal. Unsupported browsers get visible content;
+   supporting browsers use a view timeline with no hydration or observers. */
 .reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: var(--reveal-delay, 0ms);
+  opacity: 1;
+  transform: none;
 }
 
-.reveal.reveal-visible {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry var(--reveal-offset, 0%) cover 24%;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -622,7 +697,8 @@ body {
     animation: none;
     opacity: 0.9;
   }
-  .iridescent,
+  .energy-orb,
+  .energy-rings,
   .shimmer-text {
     animation: none;
   }

@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import { BRAND_NAME } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
 import { LegalPage } from "@/components/legal-page";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Privacy Policy",
   description: `How ${BRAND_NAME} collects, uses, and protects your information.`,
-  alternates: { canonical: "/privacy" },
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

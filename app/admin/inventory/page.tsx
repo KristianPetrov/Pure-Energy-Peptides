@@ -21,6 +21,14 @@ export default async function AdminInventoryPage() {
         <StatCard label="Out of stock" value={String(outOfStock)} />
       </div>
       <div className="mt-8">
+        <div className="mb-4">
+          <h2 className="text-lg font-semibold text-foreground">
+            Product inventory
+          </h2>
+          <p className="mt-1 text-xs leading-relaxed text-faint sm:text-sm">
+            Update price, stock, visibility, and featured status for each product.
+          </p>
+        </div>
         <InventoryManager
           products={products.map((product) => ({
             id: product.id,

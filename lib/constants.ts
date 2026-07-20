@@ -19,7 +19,16 @@ export function getShippingOption(id: string) {
 export const SITE_DOMAIN = "pureenergypeptides.com";
 
 export function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? `https://${SITE_DOMAIN}`;
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "");
+  const isLocalAddress = configured
+    ? /^https?:\/\/(?:localhost|127\.0\.0\.1)(?::|\/|$)/i.test(configured)
+    : false;
+
+  // Never emit a localhost canonical URL into a production build. Local
+  // development can still serve on any port while metadata targets the site.
+  return configured && !isLocalAddress
+    ? configured
+    : `https://${SITE_DOMAIN}`;
 }
 
 export const SITE_TAGLINE = "Reference-Grade Research Peptides";

@@ -37,7 +37,8 @@ export function ProductPurchase({
             alt={formatProductVariantName(selected)}
             width={1024}
             height={1536}
-            priority
+            preload
+            sizes="(min-width: 1024px) 50vw, 100vw"
             className="relative z-[1] h-[88%] w-[88%] object-contain animate-float drop-shadow-[0_22px_36px_rgba(19,28,43,0.2)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
           />
         </div>
@@ -50,7 +51,7 @@ export function ProductPurchase({
               {selected.category}
             </p>
             <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-              {selected.name}
+              {formatProductVariantName(selected)}
             </h1>
             <p className="mt-2 text-slate-ui">{selected.shortDescription}</p>
           </div>

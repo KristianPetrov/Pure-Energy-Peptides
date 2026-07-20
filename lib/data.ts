@@ -70,7 +70,11 @@ export async function getActiveProductSlugs() {
   cacheTag("products");
   const db = getDb();
   return db
-    .select({ slug: products.slug, createdAt: products.createdAt })
+    .select({
+      slug: products.slug,
+      image: products.image,
+      createdAt: products.createdAt,
+    })
     .from(products)
     .where(eq(products.active, true))
     .orderBy(asc(products.slug));

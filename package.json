@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "icons": "node scripts/generate-icons.mjs",
     "mockups": "node scripts/generate-mockups.mjs",
     "predev": "node scripts/generate-mockups.mjs",
     "prebuild": "node scripts/generate-mockups.mjs",

@@ -1,24 +1,21 @@
-import type { Metadata } from "next";
 import type { Product } from "@/db/schema";
 import { getActiveProducts } from "@/lib/data";
+import { getSiteUrl } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
 import { MobileCatalogLayout } from "@/components/mobile-catalog-layout";
+import { JsonLd } from "@/components/json-ld";
 import { groupProductVariants } from "@/lib/product-variants";
 
+const pageDescription =
+  "Browse reference-grade research peptides verified by HPLC/MS — repair, longevity, cognitive, and metabolic research compounds. For Research Use Only.";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Research Peptide Catalog",
-  description:
-    "Browse reference-grade research peptides verified by HPLC/MS — repair, longevity, cognitive, and metabolic research compounds. For Research Use Only.",
-  alternates: { canonical: "/store" },
-  openGraph: {
-    title: "Research Peptide Catalog",
-    description:
-      "Browse reference-grade research peptides verified by HPLC/MS. For Research Use Only.",
-    url: "/store",
-  },
-};
+  description: pageDescription,
+  path: "/store",
+});
 
 export default async function StorePage() {
   let products: Product[] = [];
@@ -33,9 +30,30 @@ export default async function StorePage() {
   const categories = [
     ...new Set(productGroups.map(({ product }) => product.category)),
   ];
+  const siteUrl = getSiteUrl();
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${siteUrl}/store#collection`,
+    url: `${siteUrl}/store`,
+    name: "Research Peptide Catalog",
+    description: pageDescription,
+    isPartOf: { "@id": `${siteUrl}/#website` },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: productGroups.length,
+      itemListElement: productGroups.map(({ product }, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: product.name,
+        url: `${siteUrl}/store/${product.slug}`,
+      })),
+    },
+  };
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16">
+      <JsonLd data={structuredData} />
       <Reveal>
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight">

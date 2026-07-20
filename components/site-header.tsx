@@ -2,10 +2,10 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { logout } from "@/app/actions/auth";
+import { RUO_NOTICE } from "@/lib/constants";
 import { LogoMark, LogoWordmark } from "./logo";
 import { MobileMenu } from "./mobile-menu";
-import { StickyHeader } from "./sticky-header";
-import { ThemeToggle } from "./theme-toggle";
+import { ThemeControl } from "./theme-control";
 
 const NAV_LINKS = [
   { href: "/store", label: "Store" },
@@ -81,7 +81,12 @@ function MobileMenuFallback ()
 export function SiteHeader ()
 {
   return (
-    <StickyHeader>
+    <header className="sticky top-0 z-40">
+      <div className="iridescent-dark border-b border-white/10">
+        <p className="mx-auto max-w-6xl px-4 py-1.5 text-center text-[11px] font-medium tracking-wide text-white/55">
+          {RUO_NOTICE}
+        </p>
+      </div>
       <div className="border-b border-white/10 bg-shell/95 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
           <Link
@@ -110,13 +115,13 @@ export function SiteHeader ()
                 <SessionLinks />
               </Suspense>
             </div>
-            <ThemeToggle />
+            <ThemeControl />
             <Suspense fallback={<MobileMenuFallback />}>
               <SessionMobileMenu />
             </Suspense>
           </div>
         </div>
       </div>
-    </StickyHeader>
+    </header>
   );
 }

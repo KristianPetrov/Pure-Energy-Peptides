@@ -62,6 +62,7 @@ export function CartDrawer ()
                       alt={item.name}
                       width={64}
                       height={64}
+                      sizes="72px"
                       className="relative z-[1] h-full w-full object-contain"
                     />
                   </div>

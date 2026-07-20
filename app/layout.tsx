@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Comfortaa, Cookie, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "next-themes";
 import { CartProvider } from "@/components/cart-provider";
 import { CartButton } from "@/components/cart-button";
 import { CartDrawer } from "@/components/cart-drawer";
@@ -29,6 +28,7 @@ const cookie = Cookie({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  preload: false,
 });
 
 const siteUrl = getSiteUrl();
@@ -41,6 +41,7 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   applicationName: BRAND_NAME,
+  manifest: "/manifest.webmanifest",
   keywords: [
     "research peptides",
     "reference-grade peptides",
@@ -54,6 +55,7 @@ export const metadata: Metadata = {
   creator: BRAND_NAME,
   publisher: BRAND_NAME,
   category: "science",
+  referrer: "origin-when-cross-origin",
   formatDetection: { telephone: false, address: false, email: false },
   openGraph: {
     type: "website",
@@ -67,6 +69,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${BRAND_NAME} — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
+  },
+  appleWebApp: {
+    capable: true,
+    title: BRAND_NAME,
+    statusBarStyle: "black-translucent",
   },
   robots: {
     index: true,
@@ -82,7 +89,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#131c2b",
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a101c" },
+  ],
+  viewportFit: "cover",
 };
 
 const structuredData = {
@@ -95,7 +107,9 @@ const structuredData = {
       url: siteUrl,
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/brand/pep-mark.png`,
+        url: `${siteUrl}/icon-512.png`,
+        width: 512,
+        height: 512,
       },
       slogan: "Balance · Energy · Vitality",
     },
@@ -105,6 +119,7 @@ const structuredData = {
       name: BRAND_NAME,
       url: siteUrl,
       description: SITE_DESCRIPTION,
+      inLanguage: "en-US",
       publisher: { "@id": `${siteUrl}/#organization` },
     },
   ],
@@ -123,15 +138,13 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-canvas text-ink">
         <JsonLd data={structuredData} />
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <CartProvider>
-            <SiteHeader />
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
-            <CartButton />
-            <CartDrawer />
-          </CartProvider>
-        </ThemeProvider>
+        <SiteHeader />
+        <CartProvider>
+          <main className="flex-1">{children}</main>
+          <CartButton />
+          <CartDrawer />
+        </CartProvider>
+        <SiteFooter />
       </body>
     </html>
   );

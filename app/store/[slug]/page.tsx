@@ -7,7 +7,10 @@ import {
   getProductBySlug,
 } from "@/lib/data";
 import { BRAND_NAME, getSiteUrl } from "@/lib/constants";
-import { groupProductVariants } from "@/lib/product-variants";
+import {
+  formatProductVariantName,
+  groupProductVariants,
+} from "@/lib/product-variants";
 import { JsonLd } from "@/components/json-ld";
 import { ProductPurchase } from "@/components/product-purchase";
 import { Reveal } from "@/components/reveal";
@@ -20,16 +23,27 @@ export async function generateMetadata({
   const { slug } = await params;
   try {
     const product = await getProductBySlug(slug);
-    if (!product) return { title: "Product not found" };
+    if (!product || !product.active) {
+      return { title: "Product not found", robots: { index: false } };
+    }
+    const productName = formatProductVariantName(product);
     const description = `${product.shortDescription}. For Research Use Only.`;
     return {
-      title: product.name,
+      title: productName,
       description,
       alternates: { canonical: `/store/${product.slug}` },
       openGraph: {
-        title: product.name,
+        type: "website",
+        siteName: BRAND_NAME,
+        locale: "en_US",
+        title: `${productName} — ${BRAND_NAME}`,
         description,
         url: `/store/${product.slug}`,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${productName} — ${BRAND_NAME}`,
+        description,
       },
     };
   } catch {
@@ -51,19 +65,33 @@ export default async function ProductPage({
 
   const siteUrl = getSiteUrl();
   const productUrl = `${siteUrl}/store/${product.slug}`;
+  const productName = formatProductVariantName(product);
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Product",
         "@id": `${productUrl}#product`,
-        name: product.name,
+        name: productName,
         description: product.shortDescription,
         image: `${siteUrl}${product.image}`,
         url: productUrl,
         sku: product.slug,
         category: product.category,
         brand: { "@id": `${siteUrl}/#organization` },
+        itemCondition: "https://schema.org/NewCondition",
+        additionalProperty: [
+          {
+            "@type": "PropertyValue",
+            name: "Purity",
+            value: "99%",
+          },
+          {
+            "@type": "PropertyValue",
+            name: "Intended use",
+            value: "Laboratory research only",
+          },
+        ],
         offers: {
           "@type": "Offer",
           url: productUrl,
@@ -94,7 +122,7 @@ export default async function ProductPage({
           {
             "@type": "ListItem",
             position: 3,
-            name: product.name,
+            name: productName,
             item: productUrl,
           },
         ],

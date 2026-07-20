@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import { BRAND_NAME } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
 import { LegalPage } from "@/components/legal-page";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Research Use Only Policy",
   description: `${BRAND_NAME} compliance policy: all products are strictly for in-vitro laboratory research and development. Not for human or veterinary use.`,
-  alternates: { canonical: "/compliance" },
-};
+  path: "/compliance",
+});
 
 export default function CompliancePage() {
   return (

@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+
+const subscribeToHydration = () => () => {};
 
 export function MobileMenu({
   links,
@@ -15,13 +17,13 @@ export function MobileMenu({
   isAdmin?: boolean;
 }) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [top, setTop] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    subscribeToHydration,
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -33,7 +35,6 @@ export function MobileMenu({
       }
     };
 
-    updateTop();
     window.addEventListener("resize", updateTop);
     window.addEventListener("scroll", updateTop, { passive: true });
     return () => {
@@ -41,6 +42,14 @@ export function MobileMenu({
       window.removeEventListener("scroll", updateTop);
     };
   }, [open]);
+
+  const toggleMenu = () => {
+    if (!open) {
+      const header = buttonRef.current?.closest("header");
+      if (header) setTop(header.getBoundingClientRect().bottom);
+    }
+    setOpen((value) => !value);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -115,7 +124,7 @@ export function MobileMenu({
       <button
         ref={buttonRef}
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={toggleMenu}
         className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-aqua"
         aria-label="Toggle menu"
         aria-expanded={open}

@@ -85,7 +85,8 @@ export default async function HomePage ()
               <Image
                 src={heroLogo}
                 alt={`${BRAND_NAME} logo`}
-                priority
+                preload
+                placeholder="blur"
                 sizes="(max-width: 640px) 384px, 640px"
                 className="w-96 max-w-full sm:w-160"
                 style={{ height: "auto" }}
@@ -153,7 +154,7 @@ export default async function HomePage ()
       </section>
 
       {/* Values */}
-      <section className="mx-auto max-w-6xl px-4 pt-24">
+      <section className="deferred-section mx-auto max-w-6xl px-4 pt-24">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -186,7 +187,7 @@ export default async function HomePage ()
 
       {/* Featured products */}
       {featured.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 pt-24">
+        <section className="deferred-section mx-auto max-w-6xl px-4 pt-24">
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
@@ -217,7 +218,7 @@ export default async function HomePage ()
       )}
 
       {/* RUO compliance CTA */}
-      <section className="mx-auto max-w-6xl px-4 pt-24">
+      <section className="deferred-section mx-auto max-w-6xl px-4 pt-24">
         <Reveal>
           <div className="iridescent relative overflow-hidden rounded-3xl border border-silver p-10 sm:p-14">
             <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-aqua/10 blur-3xl animate-pulse-soft" />

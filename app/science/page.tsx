@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import {
   Beaker,
   FileCheck2,
@@ -8,13 +7,14 @@ import {
   Workflow,
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Science & Quality",
   description:
-    "Our quality standards: HPLC/MS verification, lyophilization, and lot traceability.",
-  alternates: { canonical: "/science" },
-};
+    "Explore Pure Energy Peptides quality standards for HPLC/MS verification, lyophilization, controlled handling, and lot traceability.",
+  path: "/science",
+});
 
 const STANDARDS = [
   {

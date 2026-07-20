@@ -11,7 +11,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { path: "/store", changeFrequency: "daily", priority: 0.9 },
       { path: "/science", changeFrequency: "monthly", priority: 0.7 },
       { path: "/compliance", changeFrequency: "monthly", priority: 0.6 },
-      { path: "/track", changeFrequency: "monthly", priority: 0.5 },
       { path: "/terms", changeFrequency: "yearly", priority: 0.3 },
       { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
     ] as const
@@ -19,6 +18,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${siteUrl}${path === "/" ? "" : path}`,
     changeFrequency,
     priority,
+    ...(path === "/"
+      ? { images: [`${siteUrl}/brand/pe-clear.png`] }
+      : undefined),
   }));
 
   let productRoutes: MetadataRoute.Sitemap = [];
@@ -29,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: product.createdAt,
       changeFrequency: "weekly",
       priority: 0.8,
+      images: [`${siteUrl}${product.image}`],
     }));
   } catch {
     // Database unavailable; publish the static routes only.

@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import { BRAND_NAME } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
 import { LegalPage } from "@/components/legal-page";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Terms of Sale",
   description: `Terms of sale for ${BRAND_NAME}: ordering, payment, shipping, and Research Use Only requirements.`,
-  alternates: { canonical: "/terms" },
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

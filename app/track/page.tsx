@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Track the status of your research peptide order using your order reference and email address.",
   alternates: { canonical: "/track" },
+  robots: { index: false, follow: false },
 };
 
 export default async function TrackPage({

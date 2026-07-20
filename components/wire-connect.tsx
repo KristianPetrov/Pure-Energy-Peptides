@@ -1,11 +1,6 @@
-"use client";
-
-import { useEffect, useId, useRef } from "react";
-
 /**
- * A circuit-board field behind each product. On hover—or while centered in
- * the viewport on touch devices—the traces power inward, illuminate their
- * nodes, and send repeating current pulses toward the central processor.
+ * A circuit-board field behind each product. Pointer devices animate it on
+ * hover; touch devices keep the lightweight static trace without observers.
  */
 
 const CIRCUIT_PATHS = [
@@ -40,33 +35,17 @@ const CIRCUIT_NODES = [
   [254, 228],
 ] as const;
 
-export function WireConnect({ className = "" }: { className?: string }) {
-  const ref = useRef<SVGSVGElement>(null);
-  // Unique per instance; sanitized because url(#…) chokes on useId's
-  // delimiter characters in some browsers.
-  const gradientId = `wire-grad-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    // Pointer devices animate via :hover; touch devices power the circuit
-    // while the product stage sits in the middle band of the viewport.
-    if (window.matchMedia("(hover: hover)").matches) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          entry.target.classList.toggle("wire-live", entry.isIntersecting);
-        }
-      },
-      { rootMargin: "-35% 0px -35% 0px" }
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+export function WireConnect({
+  id,
+  className = "",
+}: {
+  id: string;
+  className?: string;
+}) {
+  const gradientId = `wire-grad-${id.replace(/[^a-zA-Z0-9_-]/g, "")}`;
 
   return (
     <svg
-      ref={ref}
       className={`wire-conn ${className}`}
       viewBox="0 0 400 260"
       preserveAspectRatio="none"

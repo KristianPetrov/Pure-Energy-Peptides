@@ -9,7 +9,7 @@ export function LogoMark({ size = 34 }: { size?: number }) {
       aria-hidden="true"
       sizes={`${Math.ceil(size * 1.5)}px`}
       style={{ width: size, height: "auto" }}
-      priority={size > 60}
+      preload={size > 60}
     />
   );
 }
