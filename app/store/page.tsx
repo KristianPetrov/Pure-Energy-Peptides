@@ -3,6 +3,7 @@ import type { Product } from "@/db/schema";
 import { getActiveProducts } from "@/lib/data";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
+import { MobileCatalogLayout } from "@/components/mobile-catalog-layout";
 import { groupProductVariants } from "@/lib/product-variants";
 
 
@@ -59,25 +60,29 @@ export default async function StorePage() {
         </div>
       )}
 
-      {categories.map((category) => (
-        <section key={category} className="mt-16">
-          <Reveal>
-            <div className="flex items-center gap-4">
-              <h2 className="text-xl font-bold text-foreground">{category}</h2>
-              <div className="h-px flex-1 bg-gradient-to-r from-silver to-transparent" />
-            </div>
-          </Reveal>
-          <div className="mt-7 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
-            {productGroups
-              .filter(({ product }) => product.category === category)
-              .map(({ product, variants }, index) => (
-                <Reveal key={product.id} className="h-full" delay={(index % 3) * 80}>
-                  <ProductCard variants={variants} />
-                </Reveal>
-              ))}
-          </div>
-        </section>
-      ))}
+      {categories.length > 0 && (
+        <MobileCatalogLayout>
+          {categories.map((category) => (
+            <section key={category} className="mt-10 sm:mt-16">
+              <Reveal>
+                <div className="flex items-center gap-4">
+                  <h2 className="text-xl font-bold text-foreground">{category}</h2>
+                  <div className="h-px flex-1 bg-gradient-to-r from-silver to-transparent" />
+                </div>
+              </Reveal>
+              <div className="catalog-product-grid mt-7 grid gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+                {productGroups
+                  .filter(({ product }) => product.category === category)
+                  .map(({ product, variants }, index) => (
+                    <Reveal key={product.id} className="h-full" delay={(index % 3) * 80}>
+                      <ProductCard variants={variants} />
+                    </Reveal>
+                  ))}
+              </div>
+            </section>
+          ))}
+        </MobileCatalogLayout>
+      )}
     </div>
   );
 }

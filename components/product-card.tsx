@@ -71,9 +71,14 @@ export function ProductCard ({ variants }: { variants: ProductVariant[] })
         <p className="text-[9px] font-semibold uppercase tracking-wider text-aqua-deep sm:text-[11px]">
           {selected.category}
         </p>
-        <h3 className="text-sm font-semibold leading-tight text-ink transition-colors group-hover:text-aqua-deep sm:text-base">
-          {selected.name}
-        </h3>
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-sm font-semibold leading-tight text-ink transition-colors group-hover:text-aqua-deep sm:text-base">
+            {selected.name}
+          </h3>
+          <p className="shrink-0 text-sm font-bold leading-tight text-ink sm:text-base">
+            {formatMoney(selected.priceCents)}
+          </p>
+        </div>
         <p className="line-clamp-2 text-[11px] leading-snug text-faint sm:text-sm">
           {getProductBlurb(selected)}
         </p>
@@ -114,25 +119,20 @@ export function ProductCard ({ variants }: { variants: ProductVariant[] })
             )
           )}
 
-          <div className="flex flex-col gap-2 pt-2 sm:pt-3">
-            <p className="text-base font-bold text-ink sm:text-lg">
-              {formatMoney(selected.priceCents)}
-            </p>
-            <button
-              type="button"
-              onClick={addSelectedToCart}
-              disabled={outOfStock}
-              className="relative z-[2] inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-aqua-deep to-aqua px-3 py-2 text-[11px] font-bold text-white shadow-sm transition-all hover:scale-[1.02] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aqua disabled:cursor-not-allowed disabled:from-faint disabled:to-faint disabled:opacity-60 disabled:hover:scale-100 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
-              aria-label={
-                outOfStock
-                  ? `${formatProductVariantName(selected)} is out of stock`
-                  : `Add ${formatProductVariantName(selected)} to cart`
-              }
-            >
-              <ShoppingBag className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
-              {outOfStock ? "Out of stock" : "Add to cart"}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={addSelectedToCart}
+            disabled={outOfStock}
+            className="relative z-[2] mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-aqua-deep to-aqua px-3 py-2 text-[11px] font-bold text-white shadow-sm transition-all hover:scale-[1.02] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aqua disabled:cursor-not-allowed disabled:from-faint disabled:to-faint disabled:opacity-60 disabled:hover:scale-100 sm:mt-3 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
+            aria-label={
+              outOfStock
+                ? `${formatProductVariantName(selected)} is out of stock`
+                : `Add ${formatProductVariantName(selected)} to cart`
+            }
+          >
+            <ShoppingBag className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
+            {outOfStock ? "Out of stock" : "Add to cart"}
+          </button>
         </div>
       </div>
     </div>

@@ -343,6 +343,25 @@ body {
     0 4px 12px -6px rgba(16, 207, 207, 0.18);
 }
 
+/* Mobile column toggle: must beat Tailwind `grid-cols-*` on small screens.
+   Avoid `repeat(var(--n), …)` — browsers often treat that as invalid. */
+@media (max-width: 639px) {
+  .mobile-catalog-layout[data-mobile-columns="1"] .catalog-product-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .mobile-catalog-layout[data-mobile-columns="2"] .catalog-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mobile-catalog-layout[data-mobile-columns="1"]
+    .catalog-product-grid
+    .product-stage {
+    aspect-ratio: 3 / 2;
+  }
+}
+
 /* Futuristic circuit board behind the product image. Dormant traces remain
    subtle; hover or the mobile viewport trigger powers them toward the hub. */
 .wire-conn {
