@@ -83,7 +83,7 @@ export function ProductCard ({ variants }: { variants: ProductVariant[] })
                       onClick={() => setSelected(variant)}
                       aria-pressed={active}
                       title={variantOut ? "Out of stock" : undefined}
-                      className={`rounded-full border px-2 py-0.5 text-[12px] font-extrabold shadow-sm backdrop-blur-sm transition-all sm:px-2.5 sm:py-1 sm:text-sm ${
+                      className={`rounded-full border px-2 py-0.5 text-[10px] font-extrabold shadow-sm backdrop-blur-sm transition-all sm:px-2.5 sm:py-1 sm:text-xs ${
                         active
                           ? "border-aqua bg-aqua text-shell"
                           : "border-silver/80 bg-card/90 text-slate-ui hover:border-aqua hover:text-aqua-deep"
