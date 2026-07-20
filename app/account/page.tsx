@@ -19,6 +19,9 @@ export default async function AccountPage() {
   if (!session?.user?.id) {
     redirect("/login?redirectTo=/account");
   }
+  if (session.user.role === "admin") {
+    redirect("/admin");
+  }
 
   let orders: OrderWithItems[] = [];
   try {

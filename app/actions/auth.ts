@@ -121,9 +121,10 @@ export async function authenticate(
     }
   }
 
-  // Admins land on the admin dashboard by default; customers land on their account.
-  const redirectTo =
-    requestedRedirect || (user?.role === "admin" ? "/admin" : "/account");
+  // Admins always land on the admin dashboard. Ignore customer-only redirects
+  // (e.g. /account from the footer or middleware) so they don't appear to be
+  // a normal customer after signing in.
+  const redirectTo = resolvePostLoginRedirect(requestedRedirect, user?.role);
 
   try {
     await signIn("credentials", {
@@ -138,6 +139,27 @@ export async function authenticate(
     throw error;
   }
   return {};
+}
+
+function resolvePostLoginRedirect(
+  requestedRedirect: string,
+  role: "customer" | "admin" | undefined
+): string {
+  const isSafeRelative =
+    requestedRedirect.startsWith("/") && !requestedRedirect.startsWith("//");
+
+  if (role === "admin") {
+    if (isSafeRelative && requestedRedirect.startsWith("/admin")) {
+      return requestedRedirect;
+    }
+    return "/admin";
+  }
+
+  if (isSafeRelative && !requestedRedirect.startsWith("/admin")) {
+    return requestedRedirect;
+  }
+
+  return "/account";
 }
 
 export async function resendVerificationEmail(

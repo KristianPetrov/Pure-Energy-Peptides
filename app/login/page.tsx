@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 import { AuthCard } from "@/components/auth-card";
 import { LoginForm } from "./login-form";
 
@@ -13,6 +15,11 @@ export default async function LoginPage({
   searchParams: Promise<{ redirectTo?: string; reset?: string }>;
 }) {
   const { redirectTo, reset } = await searchParams;
+  const session = await auth();
+
+  if (session?.user) {
+    redirect(session.user.role === "admin" ? "/admin" : "/account");
+  }
 
   return (
     <AuthCard

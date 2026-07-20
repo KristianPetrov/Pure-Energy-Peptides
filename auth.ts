@@ -14,6 +14,36 @@ const credentialsSchema = z.object({
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
+  callbacks: {
+    ...authConfig.callbacks,
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role === "admin" ? "admin" : "customer";
+        return token;
+      }
+
+      // Keep role in sync with the database so promoting an account to admin
+      // takes effect without waiting for an old customer JWT to expire.
+      if (token.id) {
+        try {
+          const db = getDb();
+          const [dbUser] = await db
+            .select({ role: users.role })
+            .from(users)
+            .where(eq(users.id, token.id as string))
+            .limit(1);
+          if (dbUser) {
+            token.role = dbUser.role === "admin" ? "admin" : "customer";
+          }
+        } catch {
+          // Fall back to the role already stored on the token.
+        }
+      }
+
+      return token;
+    },
+  },
   providers: [
     Credentials({
       credentials: {
